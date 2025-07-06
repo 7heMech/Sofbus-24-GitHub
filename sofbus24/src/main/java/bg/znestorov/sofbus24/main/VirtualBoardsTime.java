@@ -282,6 +282,9 @@ public class VirtualBoardsTime extends FragmentActivity {
      * number])
      */
     private String getStationCaption() {
+        if (vbTimeStation == null) {
+            return "--- (---)";
+        }
         return String.format(vbTimeStation.getName() + " (%s)",
                 vbTimeStation.getNumber());
     }

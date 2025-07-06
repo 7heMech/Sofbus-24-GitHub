@@ -766,6 +766,9 @@ public class DroidTrans extends FragmentActivity {
      * @return the current vehicle type
      */
     private VehicleTypeEnum getCurrentVehicleType() {
+        if (Utils.isEmpty(vehicleTypes)) {
+            return VehicleTypeEnum.BUS;
+        }
         return vehicleTypes.get(vehicleTypesWheel.getCurrentItem());
     }
 

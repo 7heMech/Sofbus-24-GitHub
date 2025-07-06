@@ -663,6 +663,9 @@ public class FavouritesDataSource {
      */
     public PositionTypeEnum getStationPosition(StationEntity station) {
         station = getStation(station);
+        if (station == null) {
+            return PositionTypeEnum.MEDIUM;
+        }
 
         int position = station.getPosition();
         int maxPosition = getLastPosition();

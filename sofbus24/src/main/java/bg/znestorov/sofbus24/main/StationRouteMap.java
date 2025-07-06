@@ -99,8 +99,12 @@ public class StationRouteMap extends FragmentActivity implements OnMapReadyCallb
         public boolean onMarkerClick(Marker marker) {
             if (!marker.isInfoWindowShown()) {
                 StationEntity station = getMarkerStation(marker);
-                currentMarkerLatLng = new LatLng(Double.parseDouble(station
-                        .getLat()), Double.parseDouble(station.getLon()));
+                try {
+                    currentMarkerLatLng = new LatLng(Double.parseDouble(station
+                            .getLat()), Double.parseDouble(station.getLon()));
+                } catch (Exception e) {
+                    currentMarkerLatLng = null;
+                }
             } else {
                 currentMarkerLatLng = null;
             }

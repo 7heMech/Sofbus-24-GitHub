@@ -652,10 +652,15 @@ public class ActivityUtils {
     @SuppressLint("SourceLockedOrientationActivity")
     public static void lockScreenOrientation(Activity context) {
         int currentOrientation = context.getResources().getConfiguration().orientation;
-        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-            context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        } else {
-            context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        try {
+            if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+            } else {
+                context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            }
+        } catch (Exception ignored) {
+            // Bug in Android code for Android API 26
+            // https://stackoverflow.com/a/47309343/7794942
         }
     }
 
