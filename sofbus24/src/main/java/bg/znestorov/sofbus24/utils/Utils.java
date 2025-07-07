@@ -3,7 +3,6 @@ package bg.znestorov.sofbus24.utils;
 import static bg.znestorov.sofbus24.utils.Constants.VB_URL_VIRTUAL_TABLE_API;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -19,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.gson.JsonElement;
@@ -1446,7 +1446,7 @@ public class Utils {
         return getAvailableSpaceInBytes(stat);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private static long getAvailableSpaceInBytes(StatFs stat) {
         return stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
     }

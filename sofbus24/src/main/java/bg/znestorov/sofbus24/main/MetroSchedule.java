@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import bg.znestorov.sofbus24.entity.MetroScheduleEntity;
 import bg.znestorov.sofbus24.metro.MetroScheduleWrapperFragment;
 import bg.znestorov.sofbus24.utils.Constants;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.Utils;
@@ -48,6 +49,9 @@ public class MetroSchedule extends FragmentActivity implements
         initActionBar();
         initLayoutFields();
         setActiveFragment();
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
     }
 
     @Override

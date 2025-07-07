@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -43,6 +44,7 @@ import bg.znestorov.sofbus24.gcm.GcmUtils;
 import bg.znestorov.sofbus24.navigation.NavDrawerArrayAdapter;
 import bg.znestorov.sofbus24.navigation.NavDrawerHelper;
 import bg.znestorov.sofbus24.utils.Constants;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.MapUtils;
 import bg.znestorov.sofbus24.utils.ThemeChange;
@@ -126,6 +128,20 @@ public class DroidTrans extends FragmentActivity {
                         "DroidTrans (Home Screen)");
             }
         }
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
+
+        // Note that you shouldn't override the onBackPressed() as that will make the
+        // "onBackPressedDispatcher" callback not to fire
+        // https://stackoverflow.com/a/72634975/7794942
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setResult(HomeScreenSelect.RESULT_CODE_ACTIVITY_FINISH, new Intent());
+                finish();
+            }
+        });
     }
 
     @Override
@@ -150,12 +166,6 @@ public class DroidTrans extends FragmentActivity {
         savedInstanceState.putSerializable(BUNDLE_WHEEL_STATE, wheelState);
 
         super.onSaveInstanceState(savedInstanceState);
-    }
-
-    @Override
-    public void onBackPressed() {
-        setResult(HomeScreenSelect.RESULT_CODE_ACTIVITY_FINISH, new Intent());
-        finish();
     }
 
     @Override

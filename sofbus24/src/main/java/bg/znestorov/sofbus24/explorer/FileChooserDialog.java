@@ -521,7 +521,8 @@ public class FileChooserDialog extends DialogFragment implements FileReplaceDial
                 if (newFile.isFile()) {
                     // Check if the size length is in range
                     if (newFile.length() > MAX_FILE_SIZE) {
-                        Toast.makeText(context, context.getString(R.string.file_explorer_large_file, MAX_FILE_SIZE / (1024 * 1024)), Toast.LENGTH_SHORT)
+                        String limit = String.valueOf(MAX_FILE_SIZE / (1024 * 1024));
+                        Toast.makeText(context, context.getString(R.string.file_explorer_large_file, limit), Toast.LENGTH_SHORT)
                                 .show();
                     } else {
                         String filename = newFile.getName();

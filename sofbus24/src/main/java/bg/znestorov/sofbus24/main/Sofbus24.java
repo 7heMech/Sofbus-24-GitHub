@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import bg.znestorov.sofbus24.home.screen.Sofbus24Fragment;
 import bg.znestorov.sofbus24.navigation.NavDrawerArrayAdapter;
 import bg.znestorov.sofbus24.navigation.NavDrawerHelper;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.Utils;
@@ -65,12 +67,20 @@ public class Sofbus24 extends FragmentActivity {
             // Utils.checkForUpdate(context, UpdateTypeEnum.APP);
             ActivityTracker.homeScreenUsed(context, "Sofbus 24 (Home Screen)");
         }
-    }
 
-    @Override
-    public void onBackPressed() {
-        setResult(HomeScreenSelect.RESULT_CODE_ACTIVITY_FINISH, new Intent());
-        finish();
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
+
+        // Note that you shouldn't override the onBackPressed() as that will make the
+        // "onBackPressedDispatcher" callback not to fire
+        // https://stackoverflow.com/a/72634975/7794942
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setResult(HomeScreenSelect.RESULT_CODE_ACTIVITY_FINISH, new Intent());
+                finish();
+            }
+        });
     }
 
     @Override

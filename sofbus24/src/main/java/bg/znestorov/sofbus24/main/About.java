@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 
 import bg.znestorov.sofbus24.about.RetrieveAppConfiguration;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
@@ -51,6 +52,9 @@ public class About extends FragmentActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setSubtitle(String.format(getString(R.string.about_subtitle),
                 appVersion));
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
     }
 
     @Override

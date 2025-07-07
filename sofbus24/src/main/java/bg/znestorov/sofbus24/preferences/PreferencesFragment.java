@@ -32,7 +32,7 @@ import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
  * @author Zdravko Nestorov
  * @version 1.0
  */
-@SuppressLint("NewApi")
+@SuppressLint({"NewApi", "VisibleForTests"})
 public class PreferencesFragment extends PreferenceFragment implements
         OnSharedPreferenceChangeListener {
 

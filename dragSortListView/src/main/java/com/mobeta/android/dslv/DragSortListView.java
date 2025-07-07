@@ -1208,6 +1208,7 @@ public class DragSortListView extends ListView {
     }
 
     @Override
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouchEvent(MotionEvent ev) {
         if (mIgnoreTouchEvent) {
             mIgnoreTouchEvent = false;

@@ -20,6 +20,7 @@ import bg.znestorov.sofbus24.entity.RouteChangesEntity;
 import bg.znestorov.sofbus24.route.changes.RetrieveRouteChangesApi;
 import bg.znestorov.sofbus24.route.changes.RetrieveRouteChangesNewsApi;
 import bg.znestorov.sofbus24.route.changes.RouteChangesAdapter;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.Utils;
@@ -71,6 +72,9 @@ public class RouteChanges extends ListActivity {
         initActionBar();
         initLayoutFields();
         setListAdapter();
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
     }
 
     @Override

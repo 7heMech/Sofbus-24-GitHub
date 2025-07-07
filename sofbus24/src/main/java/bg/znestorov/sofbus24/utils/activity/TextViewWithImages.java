@@ -1,17 +1,21 @@
 package bg.znestorov.sofbus24.utils.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
-import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TextViewWithImages extends TextView {
+@SuppressLint("DiscouragedApi")
+public class TextViewWithImages extends AppCompatTextView {
 
     // Image source template
     public static final String IMAGE_SOURCE_TEMPLATE = " [img src=%s alt=%s/]";
@@ -107,7 +111,7 @@ public class TextViewWithImages extends TextView {
      * @return an {@link ImageSpan}, aligned with the bottom of the text
      */
     private static ImageSpan makeImageSpan(Context context, int drawableResourceId, int height, int colour) {
-        Drawable drawable = context.getResources().getDrawable(drawableResourceId);
+        Drawable drawable = ContextCompat.getDrawable(context, drawableResourceId);
         drawable.mutate();
         drawable.setBounds(0, 0, getImageWidth(drawable, height), height);
         return new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);

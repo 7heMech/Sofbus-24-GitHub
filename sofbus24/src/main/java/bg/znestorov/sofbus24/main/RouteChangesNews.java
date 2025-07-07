@@ -1,6 +1,5 @@
 package bg.znestorov.sofbus24.main;
 
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
@@ -14,10 +13,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 import bg.znestorov.sofbus24.entity.RouteChangesEntity;
 import bg.znestorov.sofbus24.utils.Constants;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 
@@ -51,6 +52,9 @@ public class RouteChangesNews extends FragmentActivity {
         // Initialize the ActionBar and the Layout fields
         initActionBar();
         initLayoutFields();
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
     }
 
     @Override
@@ -61,7 +65,7 @@ public class RouteChangesNews extends FragmentActivity {
     }
 
     @Override
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     public boolean onOptionsItemSelected(MenuItem item) {
 
         // Select the current locale - we need to put this here, as this

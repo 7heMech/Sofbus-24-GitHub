@@ -1,5 +1,6 @@
 package bg.znestorov.sofbus24.utils.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -19,6 +20,7 @@ import bg.znestorov.sofbus24.navigation.NavDrawerHomeScreenPreferences;
  * @author Zdravko Nestorov
  * @version 1.0
  */
+@SuppressLint("VisibleForTests")
 public class ActivityTracker {
 
     /**

@@ -1,12 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 34
-    buildToolsVersion '30.0.3'
+    compileSdkVersion 36
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 34
+        targetSdkVersion 36
     }
 
     buildTypes {
@@ -15,6 +14,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    namespace 'com.astuetz.pagerslidingtabstrip'
 }
 
 dependencies {

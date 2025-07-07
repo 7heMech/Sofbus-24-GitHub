@@ -1,5 +1,6 @@
 package com.mobeta.android.dslv;
 
+import android.annotation.SuppressLint;
 import android.graphics.Point;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
@@ -248,6 +249,7 @@ public class DragSortController extends SimpleFloatViewManager implements View.O
     }
 
     @Override
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouch(View v, MotionEvent ev) {
         if (!mDslv.isDragEnabled() || mDslv.listViewIntercepted()) {
             return false;

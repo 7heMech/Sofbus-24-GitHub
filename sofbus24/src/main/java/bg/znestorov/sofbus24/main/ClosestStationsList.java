@@ -26,6 +26,7 @@ import bg.znestorov.sofbus24.closest.stations.map.RetrieveCurrentLocation;
 import bg.znestorov.sofbus24.entity.GlobalEntity;
 import bg.znestorov.sofbus24.entity.RetrieveCurrentLocationTypeEnum;
 import bg.znestorov.sofbus24.utils.Constants;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.MapUtils;
 import bg.znestorov.sofbus24.utils.ThemeChange;
@@ -61,6 +62,9 @@ public class ClosestStationsList extends FragmentActivity {
         initBundleInfo();
         initLayoutFields();
         startClosestStationsListFragment();
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
     }
 
     @Override

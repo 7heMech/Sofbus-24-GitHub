@@ -4,7 +4,6 @@ import static bg.znestorov.sofbus24.utils.ImageContent.IMAGE_CONTENT_DESCRIPTION
 import static bg.znestorov.sofbus24.utils.ImageContent.IMAGE_SRC;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -46,6 +45,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultCaller;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -809,7 +809,7 @@ public class ActivityUtils {
      *
      * @param context the current activity context
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     public static void forceTabs(FragmentActivity context) {
         try {
             final android.app.ActionBar actionBar = context.getActionBar();

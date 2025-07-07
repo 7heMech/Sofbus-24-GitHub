@@ -4,6 +4,9 @@
     <dimen name="sofbus24_empty_list_view_margin">35sp</dimen>
     <dimen name="sofbus24_empty_text_view_margin">15sp</dimen>
 
+    <!-- Action Bar -->
+    <dimen name="toolbarHeight">?android:attr/actionBarSize</dimen>
+
     <!-- Tabs (ScheduleVehicle and MetroStation) -->
     <dimen name="tab_border_radius">12sp</dimen>
 

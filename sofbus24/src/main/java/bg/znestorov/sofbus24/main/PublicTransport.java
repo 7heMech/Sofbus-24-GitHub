@@ -30,6 +30,7 @@ import bg.znestorov.sofbus24.publictransport.PublicTransportFragment;
 import bg.znestorov.sofbus24.schedule.ScheduleCacheDeleteDialog;
 import bg.znestorov.sofbus24.schedule.ScheduleCachePreferences;
 import bg.znestorov.sofbus24.utils.Constants;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.Utils;
@@ -63,6 +64,9 @@ public class PublicTransport extends FragmentActivity implements
 
         // Add the search in the history
         Utils.addVehicleInHistory(context, ptDirectionsEntity.getVehicle());
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
     }
 
     @Override
@@ -297,18 +301,17 @@ public class PublicTransport extends FragmentActivity implements
 
         @Override
         protected Intent doInBackground(Void... params) {
-            Intent ptMapRouteIntent = new Intent(context, StationRouteMap.class);
-            DirectionsEntity ptDirectionsEntityTransfer = new DirectionsEntity(
-                    ptDirectionsEntity, mViewPager.getCurrentItem());
-            ptMapRouteIntent.putExtra(Constants.BUNDLE_STATION_ROUTE_MAP,
-                    ptDirectionsEntityTransfer);
-
-            return ptMapRouteIntent;
+            return new Intent(context, StationRouteMap.class);
         }
 
         @Override
         protected void onPostExecute(Intent ptMapRouteIntent) {
             super.onPostExecute(ptMapRouteIntent);
+
+            DirectionsEntity ptDirectionsEntityTransfer = new DirectionsEntity(
+                    ptDirectionsEntity, mViewPager.getCurrentItem());
+            ptMapRouteIntent.putExtra(Constants.BUNDLE_STATION_ROUTE_MAP,
+                    ptDirectionsEntityTransfer);
 
             if (!globalContext.areServicesAvailable()) {
                 GooglePlayServicesErrorDialog googlePlayServicesErrorDialog = GooglePlayServicesErrorDialog

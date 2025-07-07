@@ -31,6 +31,7 @@ import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 
 @SuppressWarnings("deprecation")
+@SuppressLint("VisibleForTests")
 public class PreferencesPreHoneycomb extends PreferenceActivity
         implements OnSharedPreferenceChangeListener {
 
@@ -111,6 +112,7 @@ public class PreferencesPreHoneycomb extends PreferenceActivity
     }
 
     @Override
+    @SuppressLint("GestureBackNavigation")
     public void onBackPressed() {
         if (globalContext.isHasToRestart()) {
             restartApplication(false);

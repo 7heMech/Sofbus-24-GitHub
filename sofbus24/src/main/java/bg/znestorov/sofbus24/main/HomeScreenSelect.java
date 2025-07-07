@@ -2,7 +2,6 @@ package bg.znestorov.sofbus24.main;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultCaller;
@@ -60,11 +60,11 @@ import bg.znestorov.sofbus24.utils.activity.GooglePlayServicesErrorDialog;
  * device.
  * <p/>
  * For more information, StackOverflow post:<br/>
- * {http://stackoverflow.com/questions/10150899/runtimeexception-unable-to-
- * instantiate-application/10158241#10158241}
+ * {<a href="http://stackoverflow.com/questions/10150899/runtimeexception-unable-to-instantiate-application/10158241#10158241">StackOverflow</a>}
  *
  * @author Zdravko Nestorov
  */
+@SuppressLint("VisibleForTests")
 public class HomeScreenSelect extends FragmentActivity implements
         OnRecreateDatabaseListener {
 
@@ -134,6 +134,16 @@ public class HomeScreenSelect extends FragmentActivity implements
             enableDisableStatistics();
         }
 
+        // Note that you shouldn't override the onBackPressed() as that will make the
+        // "onBackPressedDispatcher" callback not to fire
+        // https://stackoverflow.com/a/72634975/7794942
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                ActivityUtils.closeApplication(context);
+            }
+        });
+
         // Create a permission launcher to request permissions
         this.permissionLauncher = PermissionsUtils.createPermissionLauncher(context,
                 AppPermissions.HOME_SCREEN, this::startHomeScreen);
@@ -162,11 +172,6 @@ public class HomeScreenSelect extends FragmentActivity implements
                 isHomeScreenBoxViewVisible);
 
         super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onBackPressed() {
-        ActivityUtils.closeApplication(context);
     }
 
     /**

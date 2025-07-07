@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -16,6 +17,7 @@ import bg.znestorov.sofbus24.about.Configuration;
 import bg.znestorov.sofbus24.edit.tabs.EditTabsFragment;
 import bg.znestorov.sofbus24.entity.ConfigEntity;
 import bg.znestorov.sofbus24.entity.GlobalEntity;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 
@@ -45,21 +47,28 @@ public class EditTabs extends FragmentActivity {
 
         initLayoutFields();
         startFragment(false);
-    }
 
-    @Override
-    public void onBackPressed() {
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
 
-        if (editTabsFragment != null) {
-            EditTabsFragment currentFragment = (EditTabsFragment) editTabsFragment;
+        // Note that you shouldn't override the onBackPressed() as that will make the
+        // "onBackPressedDispatcher" callback not to fire
+        // https://stackoverflow.com/a/72634975/7794942
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (editTabsFragment != null) {
+                    EditTabsFragment currentFragment = (EditTabsFragment) editTabsFragment;
 
-            if (!currentFragment.isSameConfig()) {
-                currentFragment.onBackPressed();
-                return;
+                    if (!currentFragment.isSameConfig()) {
+                        currentFragment.onBackPressed();
+                        return;
+                    }
+                }
+
+                finish();
             }
-        }
-
-        finish();
+        });
     }
 
     @Override

@@ -79,7 +79,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/vb_time_street_view">
+        android:layout_below="@+id/vb_time_street_view"
+        tools:ignore="ObsoleteLayoutParam">
 
         <FrameLayout
             android:id="@+id/vb_time_fragment"

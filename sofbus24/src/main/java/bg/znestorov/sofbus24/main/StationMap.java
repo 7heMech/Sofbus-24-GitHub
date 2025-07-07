@@ -37,6 +37,7 @@ import bg.znestorov.sofbus24.entity.VirtualBoardsStationEntity;
 import bg.znestorov.sofbus24.permissions.AppPermissions;
 import bg.znestorov.sofbus24.permissions.PermissionsUtils;
 import bg.znestorov.sofbus24.utils.Constants;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.MapUtils;
 import bg.znestorov.sofbus24.utils.ThemeChange;
@@ -76,6 +77,9 @@ public class StationMap extends FragmentActivity implements OnMapReadyCallback {
         // Set up the action bar
         actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
 
         // Create and launch a permission launcher to request permissions
         // N.B. Prevent strange errors where the permissions are not granted on startup

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import bg.znestorov.sofbus24.main.R;
@@ -113,13 +114,6 @@ public class VirtualBoardsCaptchaDialog extends DialogFragment {
                             }
                         }).setView(view);
 
-        builder.setOnCancelListener(new OnCancelListener() {
-            public void onCancel(DialogInterface arg0) {
-                ((OnCaptchaActionsListener) getTargetFragment())
-                        .onCaptchaCancelled();
-            }
-        });
-
         return builder.create();
     }
 
@@ -142,6 +136,13 @@ public class VirtualBoardsCaptchaDialog extends DialogFragment {
                 image.getLayoutParams().height = (int) (scWidth / 3.5f);
             }
         } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        if (getTargetFragment() != null) {
+            ((OnCaptchaActionsListener) getTargetFragment()).onCaptchaCancelled();
         }
     }
 

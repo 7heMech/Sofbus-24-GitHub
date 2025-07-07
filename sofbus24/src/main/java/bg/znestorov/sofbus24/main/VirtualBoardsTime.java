@@ -31,6 +31,7 @@ import bg.znestorov.sofbus24.entity.HtmlRequestCodesEnum;
 import bg.znestorov.sofbus24.entity.VehicleEntity;
 import bg.znestorov.sofbus24.entity.VirtualBoardsStationEntity;
 import bg.znestorov.sofbus24.utils.Constants;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.MapUtils;
 import bg.znestorov.sofbus24.utils.ThemeChange;
@@ -79,6 +80,9 @@ public class VirtualBoardsTime extends FragmentActivity {
         initLayoutFields();
         startVirtualBoardsTimeFragment("");
         isVirtualBoardsStationFavourite();
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
     }
 
     @Override

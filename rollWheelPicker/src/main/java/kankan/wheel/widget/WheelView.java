@@ -19,6 +19,7 @@
 
 package kankan.wheel.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
@@ -619,6 +620,7 @@ public class WheelView extends View {
     }
 
     @Override
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouchEvent(MotionEvent event) {
         if (!isEnabled() || getViewAdapter() == null) {
             return true;

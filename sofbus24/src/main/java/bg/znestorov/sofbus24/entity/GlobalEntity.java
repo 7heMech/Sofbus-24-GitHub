@@ -1,5 +1,6 @@
 package bg.znestorov.sofbus24.entity;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.pm.PackageManager;
 
@@ -24,6 +25,7 @@ import bg.znestorov.sofbus24.utils.HmsUtils;
  * @author Zdravko Nestorov
  * @version 1.0
  */
+@SuppressLint("VisibleForTests")
 public class GlobalEntity extends Application {
 
     // HomeScreenSelect main activity

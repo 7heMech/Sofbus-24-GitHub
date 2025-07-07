@@ -31,6 +31,7 @@ import bg.znestorov.sofbus24.history.HistoryEntity;
 import bg.znestorov.sofbus24.history.HistoryOfSearches;
 import bg.znestorov.sofbus24.schedule.ScheduleVehicleInfo;
 import bg.znestorov.sofbus24.utils.Constants;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.TranslatorCyrillicToLatin;
@@ -72,6 +73,9 @@ public class History extends ListActivity implements
 
         // Start an asynchronous task to load the data from the preferences file
         new RetrieveHistoryOfSearches().execute();
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
     }
 
     @Override

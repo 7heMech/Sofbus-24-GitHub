@@ -138,7 +138,7 @@ class FileDialogAdapter extends ArrayAdapter<File> {
                 result = context.getString(R.string.file_explorer_file);
                 break;
             default:
-                result = context.getString(R.string.file_explorer_files, filesCount);
+                result = context.getString(R.string.file_explorer_files, String.valueOf(filesCount));
                 break;
         }
 

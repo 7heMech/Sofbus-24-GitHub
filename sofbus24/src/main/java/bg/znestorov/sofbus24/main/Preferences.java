@@ -1,6 +1,5 @@
 package bg.znestorov.sofbus24.main;
 
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -17,6 +18,7 @@ import bg.znestorov.sofbus24.preferences.PreferencesFragment;
 import bg.znestorov.sofbus24.preferences.ResetSettingsDialog;
 import bg.znestorov.sofbus24.preferences.ResetSettingsDialog.OnResetSettingsListener;
 import bg.znestorov.sofbus24.preferences.RestartApplicationDialog;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 
@@ -29,7 +31,7 @@ public class Preferences extends FragmentActivity implements
 
     @Override
     @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     protected void onCreate(Bundle savedInstanceState) {
         ThemeChange.selectTheme(this);
         super.onCreate(savedInstanceState);
@@ -51,6 +53,23 @@ public class Preferences extends FragmentActivity implements
                     .replace(android.R.id.content, preferencesFragment)
                     .commit();
         }
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
+
+        // Note that you shouldn't override the onBackPressed() as that will make the
+        // "onBackPressedDispatcher" callback not to fire
+        // https://stackoverflow.com/a/72634975/7794942
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (globalContext.isHasToRestart()) {
+                    restartApplication(false);
+                } else {
+                    finish();
+                }
+            }
+        });
     }
 
     @Override
@@ -86,15 +105,6 @@ public class Preferences extends FragmentActivity implements
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (globalContext.isHasToRestart()) {
-            restartApplication(false);
-        } else {
-            finish();
         }
     }
 

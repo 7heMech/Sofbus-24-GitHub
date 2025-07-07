@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 
 import bg.znestorov.sofbus24.entity.VehicleEntity;
 import bg.znestorov.sofbus24.utils.Constants;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.Utils;
@@ -65,6 +66,9 @@ public class WebPage extends Activity {
         if (savedInstanceState == null) {
             loadWebPage(createStationUrlAddress());
         }
+
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(context);
     }
 
     @Override

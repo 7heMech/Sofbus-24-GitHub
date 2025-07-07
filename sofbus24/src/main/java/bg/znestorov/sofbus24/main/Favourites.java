@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.FragmentActivity;
 
 import bg.znestorov.sofbus24.favorites.FavouritesStationFragment;
+import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 
@@ -29,12 +31,20 @@ public class Favourites extends FragmentActivity {
 
         // Start the Sofbus24 fragment
         startFavouritesFragment(savedInstanceState);
-    }
 
-    @Override
-    public void onBackPressed() {
-        setResult(HomeScreenSelect.RESULT_CODE_ACTIVITY_FINISH, new Intent());
-        finish();
+        // Resolve the issue of the action bar overlapping on Android 16+
+        EdgeToEdgeUtils.fixActionBar(this);
+
+        // Note that you shouldn't override the onBackPressed() as that will make the
+        // "onBackPressedDispatcher" callback not to fire
+        // https://stackoverflow.com/a/72634975/7794942
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                setResult(HomeScreenSelect.RESULT_CODE_ACTIVITY_FINISH, new Intent());
+                finish();
+            }
+        });
     }
 
     @Override
