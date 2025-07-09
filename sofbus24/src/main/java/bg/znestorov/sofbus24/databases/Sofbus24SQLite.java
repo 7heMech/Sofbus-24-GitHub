@@ -13,7 +13,6 @@ import java.io.OutputStream;
 
 import bg.znestorov.sofbus24.about.Configuration;
 import bg.znestorov.sofbus24.entity.ConfigEntity;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 
 /**
  * Sofbus24 SQLite helper class, responsible for DB life-cycle (keeping
@@ -182,10 +181,6 @@ public class Sofbus24SQLite extends SQLiteOpenHelper {
             try {
                 copyDataBase(is);
             } catch (IOException e) {
-                ActivityTracker.sendCaughtException(context,
-                        "Sofbus24SQLite.createDataBase(...)",
-                        "Error copying database", e);
-
                 throw new Error("Error copying database: \n"
                         + e.getStackTrace());
             }

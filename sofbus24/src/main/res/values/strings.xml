@@ -225,8 +225,6 @@
     <string name="pref_category_more">ДОПЪЛНИТЕЛНИ НАСТРОЙКИ</string>
     <string name="pref_category_more_automatic_update_title">Автоматично обновление на спирките</string>
     <string name="pref_category_more_automatic_update_summary">Автоматична обновление при наличие на нови спирки и коли на СКГТ (няколко пъти месечно)</string>
-    <string name="pref_category_more_google_analytics_title">Помощ за развитието на Софбус 24</string>
-    <string name="pref_category_more_google_analytics_summary">Споделяне на анонимна информация за използването на приложението</string>
 
     <!-- Sofbus 24 Fragment -->
     <string name="sofbus24_favourites_title">Любими</string>

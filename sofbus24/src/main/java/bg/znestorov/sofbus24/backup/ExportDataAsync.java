@@ -6,9 +6,7 @@ import android.os.AsyncTask;
 
 import androidx.fragment.app.FragmentActivity;
 
-import bg.znestorov.sofbus24.entity.FileDialogActionEnum;
 import bg.znestorov.sofbus24.main.R;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 
 /**
@@ -50,12 +48,10 @@ public class ExportDataAsync extends AsyncTask<Void, Void, Boolean> {
         // Check what is the status of importing the data and show the appropriate message
         if (isExportSuccessful) {
 
-            // Send an information to the GoogleAnalytics and show a toast
-            ActivityTracker.backupApplicationSuccess(context, FileDialogActionEnum.EXPORT);
+            // Show a toast
             ActivityUtils.showMiddleToast(context, String.format(context.getString(R.string.backup_export_success), sourceLocation));
         } else {
-            // Send an information to the GoogleAnalytics and show a toast
-            ActivityTracker.backupApplicationFailed(context, FileDialogActionEnum.EXPORT);
+            // Show a toast
             ActivityUtils.showMiddleToast(context, context.getString(R.string.backup_export_failed));
         }
     }

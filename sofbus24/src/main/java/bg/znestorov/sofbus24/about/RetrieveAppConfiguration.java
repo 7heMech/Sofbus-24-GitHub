@@ -20,7 +20,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import bg.znestorov.sofbus24.entity.ConfigEntity;
 import bg.znestorov.sofbus24.main.R;
 import bg.znestorov.sofbus24.utils.Constants;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 
 /**
@@ -50,10 +49,6 @@ public class RetrieveAppConfiguration extends AsyncTask<Void, Void, ConfigEntity
     protected void onPreExecute() {
         super.onPreExecute();
         createLoadingView();
-
-        if (updateApp) {
-            ActivityTracker.queriedCheckForUpdate(context);
-        }
     }
 
     @Override
@@ -72,9 +67,6 @@ public class RetrieveAppConfiguration extends AsyncTask<Void, Void, ConfigEntity
             appConfig = new ConfigEntity(doc);
         } catch (Exception e) {
             appConfig = new ConfigEntity(context);
-            ActivityTracker.sendCaughtException(context,
-                    "RetrieveAppConfiguration.doInBackground(...)",
-                    "Problem with retrieving configuration", e);
         }
 
         return appConfig;

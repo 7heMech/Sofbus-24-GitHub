@@ -22,7 +22,6 @@ import bg.znestorov.sofbus24.utils.EdgeToEdgeUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.Utils;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 
 @SuppressWarnings("deprecation")
@@ -65,7 +64,6 @@ public class Sofbus24 extends FragmentActivity {
             // Not needed anymore - only the GCM notifications can inform the
             // user about any actions
             // Utils.checkForUpdate(context, UpdateTypeEnum.APP);
-            ActivityTracker.homeScreenUsed(context, "Sofbus 24 (Home Screen)");
         }
 
         // Resolve the issue of the action bar overlapping on Android 16+

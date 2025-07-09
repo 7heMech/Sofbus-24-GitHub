@@ -32,16 +32,12 @@ class BackupData {
      * -> "/data/data/bg.znestorov.sofbus24.main/databases"
      * -> "/data/data/bg.znestorov.sofbus24.main/databases/sofbus24.db"
      * -> "/data/data/bg.znestorov.sofbus24.main/databases/sofbus24.db-journal"
-     * -> "/data/data/bg.znestorov.sofbus24.main/databases/google_analytics_v4.db"
-     * -> "/data/data/bg.znestorov.sofbus24.main/databases/google_analytics_v4.db-journal"
      * -> "/data/data/bg.znestorov.sofbus24.main/shared_prefs/application_gcm.xml"
      * -> "/data/data/bg.znestorov.sofbus24.main/files/gaClientId"
      */
     private static final String SOFBUS_24_DB_FOLDER_NAME = "databases";
     private static final String SOFBUS_24_DB_FILE = "sofbus24.db";
     private static final String SOFBUS_24_DB_JOURNAL_FILE = "sofbus24.db-journal";
-    private static final String SOFBUS_24_DB_GA_FILE = "google_analytics_v4.db";
-    private static final String SOFBUS_24_DB_GA_JOURNAL_FILE = "google_analytics_v4.db-journal";
     private static final String SOFBUS_24_PREF_GCM_FILE = "application_gcm.xml";
     private static final String SOFBUS_24_FILES_GA_CLIENT_FILE = "gaClientId";
     private static final char[] SOFBUS_24_BACKUP_PASSWORD = "U09GQlVTXzI0X0JBQ0tVUF9QQVNTV09SRF9aRFJBVktPX05FU1RPUk9W".toCharArray();
@@ -130,10 +126,6 @@ class BackupData {
         // Remove the stations database from the ZIP file
         removeZipEntryFile(zipFile, SOFBUS_24_DB_FILE);
         removeZipEntryFile(zipFile, SOFBUS_24_DB_JOURNAL_FILE);
-
-        // Remove the GoogleAnalytics database from the ZIP file
-        removeZipEntryFile(zipFile, SOFBUS_24_DB_GA_FILE);
-        removeZipEntryFile(zipFile, SOFBUS_24_DB_GA_JOURNAL_FILE);
 
         // Remove the GCM file, which contains the GCM ID and some other specific user information
         removeZipEntryFile(zipFile, SOFBUS_24_PREF_GCM_FILE);

@@ -4,12 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.pm.PackageManager;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-
-import java.util.HashMap;
 
 import bg.znestorov.sofbus24.main.HomeScreenSelect;
 import bg.znestorov.sofbus24.main.R;
@@ -41,8 +37,6 @@ public class GlobalEntity extends Application {
     private boolean isHomeScreenChanged = false;
     // Indicates if the home activity is changed
     private boolean isHomeActivityChanged = false;
-    // Google Analytics
-    private HashMap<TrackerName, Tracker> mTrackers;
 
     @Override
     public void onCreate() {
@@ -133,36 +127,6 @@ public class GlobalEntity extends Application {
     }
 
     /**
-     * Get the tracker, responsible for the GoogleAnalytics statistics
-     *
-     * @param trackerId the tracker id
-     * @return the tracker
-     */
-    public synchronized Tracker getTracker(TrackerName trackerId) {
-        // Disable Google Analytics for HMS and GMS (not working with Android Target SDK >30)
-        if (HmsUtils.isHms() || HmsUtils.isGms()) {
-            return null;
-        }
-
-        if (!mTrackers.containsKey(trackerId)) {
-
-            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-
-            // Check what tracker to be created. In case we need multiple
-            // trackers, create different ones using the appropriate
-            // configuration file
-            switch (trackerId) {
-                default:
-                    Tracker tracker = analytics.newTracker(R.xml.app_tracker);
-                    mTrackers.put(trackerId, tracker);
-                    break;
-            }
-        }
-
-        return mTrackers.get(trackerId);
-    }
-
-    /**
      * Get the type of the device - PHONE, SMALL TABLET or LARGE TABLET
      *
      * @return the device type
@@ -206,8 +170,6 @@ public class GlobalEntity extends Application {
             // Google Street View
             isGoogleStreetViewAvailable = false;
         }
-
-        mTrackers = new HashMap<TrackerName, Tracker>();
     }
 
     @Override
@@ -222,16 +184,4 @@ public class GlobalEntity extends Application {
                 + "\n\tisHomeScreenChanged: " + isHomeScreenChanged
                 + "\n\tisHomeActivityChanged: " + isHomeActivityChanged + "\n}";
     }
-
-    /**
-     * Enum used to identify the tracker that needs to be used for tracking.
-     * <p/>
-     * A single tracker is usually enough for most purposes. In case you do need
-     * multiple trackers, storing them all in Application object helps ensure
-     * that they are created only once per application instance.
-     */
-    public enum TrackerName {
-        APP_TRACKER
-    }
-
 }

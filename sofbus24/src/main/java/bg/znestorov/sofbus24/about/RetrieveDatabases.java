@@ -17,7 +17,6 @@ import java.util.HashMap;
 import bg.znestorov.sofbus24.databases.Sofbus24SQLite;
 import bg.znestorov.sofbus24.entity.ConfigEntity;
 import bg.znestorov.sofbus24.utils.Constants;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 
 /**
@@ -71,9 +70,6 @@ class RetrieveDatabases extends
             }
         } catch (Exception e) {
             databases.clear();
-            ActivityTracker.sendCaughtException(context,
-                    "RetrieveDatabases.doInBackground(...)",
-                    "Problem with retrieving DB", e);
         }
 
         return databases;

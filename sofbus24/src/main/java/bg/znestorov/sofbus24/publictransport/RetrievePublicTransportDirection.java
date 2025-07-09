@@ -32,7 +32,6 @@ import bg.znestorov.sofbus24.main.R;
 import bg.znestorov.sofbus24.schedule.ScheduleCachePreferences;
 import bg.znestorov.sofbus24.schedule.ScheduleVehicleFragment;
 import bg.znestorov.sofbus24.utils.Constants;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 
 /**
@@ -151,7 +150,6 @@ public class RetrievePublicTransportDirection extends AsyncTask<Void, Void, Dire
             // In case of loading the schedule from the local cache (and if the
             // toasts are allowed), alert the user about that
             if (ptDirectionsEntity.isScheduleCacheLoaded()) {
-                ActivityTracker.queriedLocalScheduleCache(context);
 
                 if (ScheduleCachePreferences.isScheduleCacheToastShown(context)) {
 

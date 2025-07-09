@@ -17,7 +17,6 @@ import bg.znestorov.sofbus24.entity.FileDialogActionEnum;
 import bg.znestorov.sofbus24.explorer.FileChooserDialog;
 import bg.znestorov.sofbus24.main.R;
 import bg.znestorov.sofbus24.utils.LanguageChange;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 
 /**
  * Dialog informing the user about the backup options
@@ -67,9 +66,6 @@ public class ChooseBackupDialog extends DialogFragment {
                         fileChooserDialogName = "FileExportDialog";
                         break;
                 }
-
-                // Send information to GoogleAnalytics with the taken action - IMPORT/EXPORT
-                ActivityTracker.backupApplication(context, fileDialogAction);
 
                 // Start the FileChooserDialog in IMPORT/EXPORT mode
                 fileChooserDialog = FileChooserDialog.newInstance(fileDialogAction);

@@ -33,7 +33,6 @@ import bg.znestorov.sofbus24.main.R;
 import bg.znestorov.sofbus24.schedule.ScheduleCachePreferences;
 import bg.znestorov.sofbus24.utils.Constants;
 import bg.znestorov.sofbus24.utils.Utils;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 
 /**
@@ -74,7 +73,6 @@ public class RetrievePublicTransportStation extends
     protected void onPreExecute() {
         super.onPreExecute();
 
-        ActivityTracker.queriedScheduleInformation(context);
         createLoadingView();
     }
 
@@ -152,7 +150,6 @@ public class RetrievePublicTransportStation extends
             // In case of loading the schedule from the local cache (and if the
             // toasts are allowed), alert the user about that
             if (ptStation.isScheduleCacheLoaded()) {
-                ActivityTracker.queriedLocalScheduleCache(context);
 
                 if (ScheduleCachePreferences.isScheduleCacheToastShown(context)) {
 

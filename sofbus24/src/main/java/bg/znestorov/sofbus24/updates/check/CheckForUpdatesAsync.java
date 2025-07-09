@@ -24,7 +24,6 @@ import bg.znestorov.sofbus24.entity.UpdateTypeEnum;
 import bg.znestorov.sofbus24.main.R;
 import bg.znestorov.sofbus24.utils.Constants;
 import bg.znestorov.sofbus24.utils.Utils;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 
 /**
@@ -69,9 +68,6 @@ public class CheckForUpdatesAsync extends AsyncTask<Void, Void, ConfigEntity> {
             appConfig = new ConfigEntity(doc);
         } catch (Exception e) {
             appConfig = new ConfigEntity(context);
-            ActivityTracker.sendCaughtException(context,
-                    "CheckForUpdatesAsync.doInBackground(...)",
-                    "Problem with retrieving Configuration", e);
         }
 
         if (updateType == UpdateTypeEnum.DB) {

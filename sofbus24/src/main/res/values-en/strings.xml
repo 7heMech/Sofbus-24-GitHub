@@ -222,8 +222,6 @@
     <string name="pref_category_more">OTHER</string>
     <string name="pref_category_more_automatic_update_title">Automatic station update</string>
     <string name="pref_category_more_automatic_update_summary">Automatic update when new stations or SKGT cars are available (a few times each month)</string>
-    <string name="pref_category_more_google_analytics_title">Help developing Sofbus 24</string>
-    <string name="pref_category_more_google_analytics_summary">Sharing anonymous information about the use of the application</string>
 
     <!-- Sofbus 24 Fragment -->
     <string name="sofbus24_favourites_title">Favorites</string>

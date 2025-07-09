@@ -13,17 +13,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
-
 import bg.znestorov.sofbus24.entity.GlobalEntity;
 import bg.znestorov.sofbus24.main.R;
 import bg.znestorov.sofbus24.navigation.NavDrawerHomeScreenPreferences;
 import bg.znestorov.sofbus24.utils.Constants;
-import bg.znestorov.sofbus24.utils.HmsUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
-import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.Utils;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 
 /**
@@ -100,8 +95,6 @@ public class PreferencesFragment extends PreferenceFragment implements
         }
 
         if (key.equals(Constants.PREFERENCE_KEY_APP_THEME)) {
-            ActivityTracker.changedApplicationTheme(context,
-                    ThemeChange.getAppTheme(context));
             globalContext.setHasToRestart(true);
         }
 
@@ -119,21 +112,6 @@ public class PreferencesFragment extends PreferenceFragment implements
                 || key.equals(Constants.PREFERENCE_KEY_STATIONS_RADIUS) || key
                 .equals(Constants.PREFERENCE_KEY_POSITION_FOCUS))) {
             globalContext.setHasToRestart(true);
-        }
-
-        // Disable Google Analytics for HMS and GMS (not working with Android Target SDK >30)
-        if (HmsUtils.isHms() || HmsUtils.isGms()) {
-            return;
-        }
-
-        if (key.equals(Constants.PREFERENCE_KEY_GOOGLE_ANALYTICS)) {
-            GoogleAnalytics
-                    .getInstance(globalContext)
-                    .setAppOptOut(
-                            !sharedPreferences
-                                    .getBoolean(
-                                            key,
-                                            Constants.PREFERENCE_DEFAULT_VALUE_GOOGLE_ANALYTICS));
         }
     }
 

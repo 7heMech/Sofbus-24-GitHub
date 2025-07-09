@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -19,8 +18,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
-
-import com.google.android.gms.analytics.GoogleAnalytics;
 
 import bg.znestorov.sofbus24.about.Configuration;
 import bg.znestorov.sofbus24.databases.ScheduleDatabaseUtils;
@@ -38,11 +35,9 @@ import bg.znestorov.sofbus24.navigation.NavDrawerHomeScreenPreferences;
 import bg.znestorov.sofbus24.permissions.AppPermissions;
 import bg.znestorov.sofbus24.permissions.PermissionsUtils;
 import bg.znestorov.sofbus24.schedule.ScheduleLoadVehicles;
-import bg.znestorov.sofbus24.utils.Constants;
 import bg.znestorov.sofbus24.utils.HmsUtils;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.Utils;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 import bg.znestorov.sofbus24.utils.activity.GooglePlayServicesErrorDialog;
 
@@ -97,7 +92,6 @@ public class HomeScreenSelect extends FragmentActivity implements
 
                     switch (result.getResultCode()) {
                         case RESULT_CODE_ACTIVITY_NEW:
-                            ActivityTracker.selectedHomeScreen(context);
                         case RESULT_CODE_ACTIVITY_RESTART:
                             processAppStartUp(null, false);
                             break;
@@ -127,11 +121,9 @@ public class HomeScreenSelect extends FragmentActivity implements
         // Init the layout fields
         initLayoutFields(savedInstanceState, true);
 
-        // In case of first start, check if the statistics should be
-        // enabled/disabled
+        // In case of first start, register the client app with the GCM service
         if (savedInstanceState == null) {
             registerGCM();
-            enableDisableStatistics();
         }
 
         // Note that you shouldn't override the onBackPressed() as that will make the
@@ -425,25 +417,6 @@ public class HomeScreenSelect extends FragmentActivity implements
         }
     }
 
-    /**
-     * Enable or disable the GoogleAnalytics
-     */
-    private void enableDisableStatistics() {
-        // Disable Google Analytics for HMS and GMS (not working with Android Target SDK >30)
-        if (HmsUtils.isHms() || HmsUtils.isGms()) {
-            return;
-        }
-
-        boolean googleAnalytics = PreferenceManager
-                .getDefaultSharedPreferences(context).getBoolean(
-                        Constants.PREFERENCE_KEY_GOOGLE_ANALYTICS,
-                        Constants.PREFERENCE_DEFAULT_VALUE_GOOGLE_ANALYTICS);
-
-        // Set the opposite value of the user choice to the AppOptOut (so
-        // enable/disable automatic tracking)
-        GoogleAnalytics.getInstance(getApplicationContext()).setAppOptOut(!googleAnalytics);
-    }
-
     @Override
     public void onRecreateDatabaseClicked() {
         showHomeScreenBoxView();
@@ -523,7 +496,6 @@ public class HomeScreenSelect extends FragmentActivity implements
                 // case when the user can't copy the database correctly into the
                 // memory)
                 if (startupCount > MAX_STARTUP_COUNT) {
-                    ActivityTracker.sofbusDatabaseErrorDialog(context);
                     hideHomeScreenBoxView();
 
                     DialogFragment dialogFragment = Sofbus24DatabaseErrorDialog

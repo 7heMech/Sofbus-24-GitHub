@@ -79,7 +79,6 @@ import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.MapUtils;
 import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.Utils;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 import bg.znestorov.sofbus24.virtualboards.RetrieveVirtualBoardsApi;
 
@@ -234,8 +233,6 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
                 // Utils.checkForUpdate(context, UpdateTypeEnum.APP);
                 GcmUtils.processGcmNotification(context,
                         getSupportFragmentManager());
-                ActivityTracker.homeScreenUsed(context,
-                        "Closest Stations Map (Home Screen)");
             }
 
             initNavigationDrawer();

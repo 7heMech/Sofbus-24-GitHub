@@ -27,7 +27,6 @@ import bg.znestorov.sofbus24.main.VirtualBoardsTime;
 import bg.znestorov.sofbus24.main.VirtualBoardsTimeDialog;
 import bg.znestorov.sofbus24.utils.Constants;
 import bg.znestorov.sofbus24.utils.Utils;
-import bg.znestorov.sofbus24.utils.activity.ActivityTracker;
 import bg.znestorov.sofbus24.utils.activity.ActivityUtils;
 
 /**
@@ -74,9 +73,6 @@ public class RetrieveVirtualBoardsApi {
      * Retrieve the information for the selected station
      */
     public void getSumcInformation() {
-
-        ActivityTracker.queriedVirtualBoardsInformation(context);
-        ActivityTracker.queriedVirtualBoardsInformationType(context, htmlRequestCode);
 
         // Create the appropriate progress dialog message (if searched by HomeScreen -
         // show only the searched string, otherwise - the station caption)
