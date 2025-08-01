@@ -161,7 +161,7 @@ public class Utils {
      * @return boolean TRUE if empty, otherwise FALSE
      */
     public static <T> boolean isEmpty(List<T> input) {
-        return input == null || input.size() == 0;
+        return input == null || input.isEmpty();
     }
 
     /**

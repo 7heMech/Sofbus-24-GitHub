@@ -230,7 +230,7 @@ public class VirtualBoardsTime extends FragmentActivity {
         vbTimeStationCaption.setText(Html.fromHtml(getStationCaption()));
         vbTimeCurrentTime.setText(String.format(
                 getString(R.string.vb_time_current_time),
-                vbTimeStation.getTime(context)));
+                getStationTime()));
 
         // Add a click listener over the google street view image button
         vbTimeStreetViewButton.setOnClickListener(new OnClickListener() {
@@ -291,6 +291,18 @@ public class VirtualBoardsTime extends FragmentActivity {
         }
         return String.format(vbTimeStation.getName() + " (%s)",
                 vbTimeStation.getNumber());
+    }
+
+    /**
+     * Get the station time
+     *
+     * @return the station time
+     */
+    private String getStationTime() {
+        if (vbTimeStation == null) {
+            return "---";
+        }
+        return vbTimeStation.getTime(context);
     }
 
     /**

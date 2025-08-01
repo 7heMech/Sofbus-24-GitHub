@@ -82,7 +82,12 @@ public class CheckForUpdatesAsync extends AsyncTask<Void, Void, ConfigEntity> {
         super.onPostExecute(newConfig);
 
         if (updateType == UpdateTypeEnum.APP) {
-            updateApp(newConfig);
+            try {
+                updateApp(newConfig);
+            } catch (Exception e) {
+                // Do nothing
+                // https://stackoverflow.com/a/35431196/7794942
+            }
         }
 
         CheckForUpdatesPreferences.setLastCheckDate(context,

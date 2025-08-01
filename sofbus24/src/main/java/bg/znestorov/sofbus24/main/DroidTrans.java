@@ -634,6 +634,10 @@ public class DroidTrans extends FragmentActivity {
      * @return the number
      */
     private String[] getVehicleNumberArray(VehicleTypeEnum vehicleType) {
+        if (Utils.isEmpty(vehicleNumbers)) {
+            return new String[0];
+        }
+
         String[] vehicleNumbersArray;
         vehicleNumbersArray = new String[vehicleNumbers.size()];
         vehicleNumbersArray = vehicleNumbers.toArray(vehicleNumbersArray);
