@@ -258,20 +258,27 @@ class BackupData {
 
         ContentResolver resolver = context.getContentResolver();
 
-        OutputStream rawOut = resolver.openOutputStream(targetUri, "wt");
-        if (rawOut == null) {
-            throw new IOException("ContentResolver returned a null OutputStream for " + targetUri);
-        }
+        // Outer try-with-resources guarantees that the SAF stream is closed
+        // even if the construction of the inner wrappers throws (for example,
+        // if the staging file disappeared between the export setup and now).
+        // The inner Base64OutputStream also propagates close() to rawOut, but
+        // close() is contractually idempotent so the second call is a no-op.
+        try (OutputStream rawOut = resolver.openOutputStream(targetUri, "wt")) {
 
-        try (InputStream in = new FileInputStream(sourceFile);
-             OutputStream encodedOut = new Base64OutputStream(rawOut, Base64.DEFAULT)) {
-
-            byte[] chunk = new byte[IO_BUFFER_SIZE];
-            int read;
-            while ((read = in.read(chunk)) != -1) {
-                encodedOut.write(chunk, 0, read);
+            if (rawOut == null) {
+                throw new IOException("ContentResolver returned a null OutputStream for " + targetUri);
             }
-            encodedOut.flush();
+
+            try (InputStream in = new FileInputStream(sourceFile);
+                 OutputStream encodedOut = new Base64OutputStream(rawOut, Base64.DEFAULT)) {
+
+                byte[] chunk = new byte[IO_BUFFER_SIZE];
+                int read;
+                while ((read = in.read(chunk)) != -1) {
+                    encodedOut.write(chunk, 0, read);
+                }
+                encodedOut.flush();
+            }
         }
     }
 
@@ -366,20 +373,28 @@ class BackupData {
 
         ContentResolver resolver = context.getContentResolver();
 
-        InputStream rawIn = resolver.openInputStream(sourceUri);
-        if (rawIn == null) {
-            throw new IOException("ContentResolver returned a null InputStream for " + sourceUri);
-        }
+        // Outer try-with-resources guarantees that the SAF stream is closed
+        // even if the construction of the inner wrappers throws (for example,
+        // if the destination file cannot be opened due to permissions or a
+        // full disk). The inner Base64InputStream also propagates close() to
+        // rawIn, but close() is contractually idempotent so the second call
+        // is a no-op.
+        try (InputStream rawIn = resolver.openInputStream(sourceUri)) {
 
-        try (InputStream decodedIn = new Base64InputStream(rawIn, Base64.DEFAULT);
-             OutputStream out = new FileOutputStream(destinationFile)) {
-
-            byte[] chunk = new byte[IO_BUFFER_SIZE];
-            int read;
-            while ((read = decodedIn.read(chunk)) != -1) {
-                out.write(chunk, 0, read);
+            if (rawIn == null) {
+                throw new IOException("ContentResolver returned a null InputStream for " + sourceUri);
             }
-            out.flush();
+
+            try (InputStream decodedIn = new Base64InputStream(rawIn, Base64.DEFAULT);
+                 OutputStream out = new FileOutputStream(destinationFile)) {
+
+                byte[] chunk = new byte[IO_BUFFER_SIZE];
+                int read;
+                while ((read = decodedIn.read(chunk)) != -1) {
+                    out.write(chunk, 0, read);
+                }
+                out.flush();
+            }
         }
     }
 
