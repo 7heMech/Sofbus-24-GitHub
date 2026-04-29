@@ -4,6 +4,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Base64;
+import android.util.Base64InputStream;
+import android.util.Base64OutputStream;
 
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
@@ -14,7 +16,6 @@ import net.lingala.zip4j.model.enums.CompressionLevel;
 import net.lingala.zip4j.model.enums.CompressionMethod;
 import net.lingala.zip4j.model.enums.EncryptionMethod;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -244,6 +245,11 @@ class BackupData {
      * Read the contents of {@code sourceFile}, Base64-encode them and stream
      * the result into the user-selected SAF location.
      *
+     * <p>Encoding is performed through {@link android.util.Base64OutputStream}
+     * so that we never hold the full payload (raw + encoded) in memory at the
+     * same time. The {@link Base64#DEFAULT} flag is preserved so the on-disk
+     * format remains byte-identical to backups produced by older versions.</p>
+     *
      * @param sourceFile staged ZIP file produced during the export step
      * @param targetUri  user-selected SAF destination
      * @throws IOException if reading or writing fails
@@ -252,19 +258,20 @@ class BackupData {
 
         ContentResolver resolver = context.getContentResolver();
 
-        // We must Base64-encode the entire ZIP at once to mirror the legacy
-        // behaviour exactly (the old format used Base64.DEFAULT which adds
-        // line breaks). To avoid OOM on huge files, the upstream UI restricts
-        // backups to ~13 MiB.
-        byte[] zipBytes = readAllBytes(sourceFile);
-        byte[] encodedBytes = Base64.encode(zipBytes, Base64.DEFAULT);
+        OutputStream rawOut = resolver.openOutputStream(targetUri, "wt");
+        if (rawOut == null) {
+            throw new IOException("ContentResolver returned a null OutputStream for " + targetUri);
+        }
 
-        try (OutputStream out = resolver.openOutputStream(targetUri, "wt")) {
-            if (out == null) {
-                throw new IOException("ContentResolver returned a null OutputStream for " + targetUri);
+        try (InputStream in = new FileInputStream(sourceFile);
+             OutputStream encodedOut = new Base64OutputStream(rawOut, Base64.DEFAULT)) {
+
+            byte[] chunk = new byte[IO_BUFFER_SIZE];
+            int read;
+            while ((read = in.read(chunk)) != -1) {
+                encodedOut.write(chunk, 0, read);
             }
-            out.write(encodedBytes);
-            out.flush();
+            encodedOut.flush();
         }
     }
 
@@ -348,6 +355,9 @@ class BackupData {
      * Read all bytes available at {@code sourceUri}, Base64-decode them and
      * write the decoded payload to {@code destinationFile}.
      *
+     * <p>Decoding is performed through {@link android.util.Base64InputStream}
+     * so that the encoded payload is never fully loaded into memory.</p>
+     *
      * @param sourceUri       SAF source URI
      * @param destinationFile staged file to receive the decoded bytes
      * @throws IOException if reading or writing fails
@@ -356,23 +366,19 @@ class BackupData {
 
         ContentResolver resolver = context.getContentResolver();
 
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        try (InputStream in = resolver.openInputStream(sourceUri)) {
-            if (in == null) {
-                throw new IOException("ContentResolver returned a null InputStream for " + sourceUri);
-            }
+        InputStream rawIn = resolver.openInputStream(sourceUri);
+        if (rawIn == null) {
+            throw new IOException("ContentResolver returned a null InputStream for " + sourceUri);
+        }
+
+        try (InputStream decodedIn = new Base64InputStream(rawIn, Base64.DEFAULT);
+             OutputStream out = new FileOutputStream(destinationFile)) {
 
             byte[] chunk = new byte[IO_BUFFER_SIZE];
             int read;
-            while ((read = in.read(chunk)) != -1) {
-                buffer.write(chunk, 0, read);
+            while ((read = decodedIn.read(chunk)) != -1) {
+                out.write(chunk, 0, read);
             }
-        }
-
-        byte[] decodedBytes = Base64.decode(buffer.toByteArray(), Base64.DEFAULT);
-
-        try (OutputStream out = new FileOutputStream(destinationFile)) {
-            out.write(decodedBytes);
             out.flush();
         }
     }
@@ -415,22 +421,6 @@ class BackupData {
     // ---------------------------------------------------------------------
     //  Generic I/O helpers
     // ---------------------------------------------------------------------
-
-    /**
-     * Read all bytes from a local {@link File} using a try-with-resources block.
-     */
-    private byte[] readAllBytes(File file) throws IOException {
-
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        try (InputStream in = new FileInputStream(file)) {
-            byte[] chunk = new byte[IO_BUFFER_SIZE];
-            int read;
-            while ((read = in.read(chunk)) != -1) {
-                buffer.write(chunk, 0, read);
-            }
-        }
-        return buffer.toByteArray();
-    }
 
     /**
      * Create a fresh empty file inside the application's private cache directory.

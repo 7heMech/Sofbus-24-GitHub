@@ -245,8 +245,15 @@ public class ChooseBackupDialog extends DialogFragment {
     }
 
     /**
-     * Best-effort lookup of the display name (file name) backing a SAF
-     * {@link Uri}. Returns {@code null} if the name cannot be resolved.
+     * Looks up the display name (file name) backing a SAF {@link Uri} via the
+     * {@link OpenableColumns#DISPLAY_NAME} column. Returns {@code null} if the
+     * provider does not expose a display name or the query fails.
+     *
+     * <p>We deliberately do <em>not</em> fall back to {@link Uri#getPath()},
+     * because the path component of a SAF {@code content://} URI is usually
+     * an opaque document ID and would produce unreliable extension matches.
+     * Treating an unknown name as "invalid" is the safer default — it forces
+     * the user to pick a file from a properly-implemented document provider.</p>
      */
     private static String queryDisplayName(FragmentActivity activity, Uri uri) {
         try (Cursor cursor = activity.getContentResolver().query(
@@ -261,17 +268,7 @@ public class ChooseBackupDialog extends DialogFragment {
                 }
             }
         } catch (Exception ignored) {
-            // Fall through to the URI-path fallback
-        }
-
-        // Fallback: try to extract a file name from the URI path itself
-        String path = uri.getPath();
-        if (path != null) {
-            int slash = path.lastIndexOf('/');
-            if (slash >= 0 && slash + 1 < path.length()) {
-                return path.substring(slash + 1);
-            }
-            return path;
+            // Provider failed - treat as unknown
         }
         return null;
     }
