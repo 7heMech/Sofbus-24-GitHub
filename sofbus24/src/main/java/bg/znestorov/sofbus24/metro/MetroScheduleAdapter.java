@@ -101,6 +101,21 @@ class MetroScheduleAdapter extends ArrayAdapter<String> {
 
     private void setMetroSchedule(ViewHolder viewHolder, String metroSchedule) {
 
+        // Resolve the per-theme "active" (neutral) text color and the shared
+        // "passed" grey from named resources so the palette stays centralized.
+        boolean isLightTheme = ThemeChange.isLightTheme(context);
+        boolean isAmoledTheme = ThemeChange.isAmoledTheme(context);
+        int activeTextColorResId = isLightTheme
+                ? R.color.app_light_theme_schedule_text_active
+                : (isAmoledTheme
+                        ? R.color.app_amoled_theme_schedule_text_active
+                        : R.color.app_dark_theme_schedule_text_active);
+        int neutralColor = context.getResources().getColor(activeTextColorResId);
+        int passedColor = context.getResources().getColor(
+                R.color.schedule_text_passed);
+        int expressColor = context.getResources().getColor(
+                R.color.metro_schedule_express);
+
         // Find the metro schedule type
         MetroScheduleType metroScheduleType = MetroScheduleType.NONE;
         try {
@@ -126,44 +141,43 @@ class MetroScheduleAdapter extends ArrayAdapter<String> {
         metroSchedule = metroSchedule.trim();
 
         // Define the color and the text of the current row
-        String metroScheduleColor;
+        int metroScheduleColor;
         switch (metroScheduleType) {
             case IC:
-                metroScheduleColor = "#FF0017";
+                metroScheduleColor = expressColor;
                 break;
             case SA:
                 metroSchedule = metroSchedule
                         + context.getString(R.string.metro_schedule_sofia_airport);
-                metroScheduleColor = "#000000";
+                metroScheduleColor = neutralColor;
                 break;
             case BP:
                 metroSchedule = metroSchedule
                         + context.getString(R.string.metro_schedule_business_park);
-                metroScheduleColor = "#000000";
+                metroScheduleColor = neutralColor;
                 break;
             case IC_SA:
                 metroSchedule = metroSchedule
                         + context.getString(R.string.metro_schedule_sofia_airport);
-                metroScheduleColor = "#FF0017";
+                metroScheduleColor = expressColor;
                 break;
             case IC_BP:
                 metroSchedule = metroSchedule
                         + context.getString(R.string.metro_schedule_business_park);
-                metroScheduleColor = "#FF0017";
+                metroScheduleColor = expressColor;
                 break;
             default:
-                metroScheduleColor = "#000000";
+                metroScheduleColor = neutralColor;
                 break;
         }
 
         // In case the metro schedule hour has already passed, set the text
         // color to grey
         if (!Utils.isActiveSchedule(metroSchedule)) {
-            metroScheduleColor = "#8B8B8B";
+            metroScheduleColor = passedColor;
         }
 
-        viewHolder.scheduleMetroHour.setTextColor(Color
-                .parseColor(metroScheduleColor));
+        viewHolder.scheduleMetroHour.setTextColor(metroScheduleColor);
         viewHolder.scheduleMetroHour.setText(Html.fromHtml(metroSchedule));
     }
 

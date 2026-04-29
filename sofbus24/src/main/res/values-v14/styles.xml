@@ -11,6 +11,9 @@
 
     <style name="AppThemeLight" parent="AppBaseThemeLight">
         <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
+        <item name="scheduleStationBackground">@color/schedule_station_bg_light</item>
+        <item name="scheduleTimeBackground">@color/schedule_time_bg_light</item>
+        <item name="scheduleLegendBackground">@drawable/vb_time_border</item>
     </style>
 
     <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -28,6 +31,9 @@
     <style name="AppThemeDark" parent="AppBaseThemeDark">
         <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyleDark</item>
         <item name="android:windowBackground">@color/app_dark_theme_background</item>
+        <item name="scheduleStationBackground">@color/schedule_station_bg_dark</item>
+        <item name="scheduleTimeBackground">@color/schedule_time_bg_dark</item>
+        <item name="scheduleLegendBackground">@drawable/vb_time_border</item>
     </style>
 
     <style name="MyTheme.ActionBarStyleDark" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -36,14 +42,48 @@
     </style>
 
     <!-- ANDROID AMOLED THEME -->
-    <style name="AppBaseThemeAmoled" parent="android:Theme.Holo.Light" />
+    <style name="AppBaseThemeAmoled" parent="android:Theme.Holo" />
 
     <style name="AppThemeAmoled" parent="AppBaseThemeAmoled">
         <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyleAmoled</item>
         <item name="android:windowBackground">@color/app_amoled_theme_background</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogThemeAmoled</item>
+        <item name="scheduleStationBackground">@color/schedule_station_bg_amoled</item>
+        <item name="scheduleTimeBackground">@color/schedule_time_bg_amoled</item>
+        <item name="scheduleLegendBackground">@drawable/vb_time_border_amoled</item>
     </style>
 
-    <style name="MyTheme.ActionBarStyleAmoled" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <!-- ANDROID ALERT DIALOG THEME (AMOLED) -->
+    <!-- Used by android.app.AlertDialog.Builder popups (info, error, confirm, -->
+    <!-- sort, choose direction, file chooser, etc.) when the AMOLED app theme -->
+    <!-- is active. We swap the parent Theme.Holo.Dialog 9-patch background -->
+    <!-- for a single rounded dark-grey card (dialog_card_amoled) so the popup -->
+    <!-- doesn't render with a "double rectangle" artefact (the Holo 9-patch's -->
+    <!-- outer shadow region showing up as a hard outer rectangle around the -->
+    <!-- card on a pure-black AMOLED screen) and isn't painted as a flat -->
+    <!-- true-black rectangle either. Text and button colours stay white so -->
+    <!-- they remain readable on the dark card. -->
+    <style name="AlertDialogThemeAmoled" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:buttonBarButtonStyle">@style/AlertDialogButtonAmoled</item>
+        <!-- Replace the parent Theme.Holo.Dialog 9-patch background with a -->
+        <!-- single rounded dark-grey card so AMOLED popups don't render with -->
+        <!-- the "double rectangle" artefact (the Holo 9-patch's outer shadow -->
+        <!-- region showing up as a hard rectangle around the card on pure -->
+        <!-- black). -->
+        <item name="android:windowBackground">@drawable/dialog_card_amoled</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!-- AMOLED-styled positive/negative/neutral buttons for the AMOLED alert -->
+    <!-- dialog theme: keep white text on the dark Holo dialog card. -->
+    <style name="AlertDialogButtonAmoled" parent="@android:style/Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="MyTheme.ActionBarStyleAmoled" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:background">@color/app_amoled_theme_action_bar</item>
         <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>
@@ -55,6 +95,29 @@
         <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <!-- ANDROID DIALOG THEME (AMOLED) -->
+    <!-- Popup-style activities (PreferencesDialog, AboutDialog, HistoryDialog, -->
+    <!-- etc.) get this theme on AMOLED. We forward android:alertDialogTheme so -->
+    <!-- AlertDialog popups spawned from those activities also adopt the AMOLED -->
+    <!-- look. We swap the parent Theme.Holo.Dialog 9-patch window background -->
+    <!-- for the same single dark-grey card drawable used by -->
+    <!-- AlertDialogThemeAmoled so popup-style activities don't render with the -->
+    <!-- "double rectangle" artefact (the Holo 9-patch's outer shadow region -->
+    <!-- showing as a hard outer rectangle around the card on a pure-black -->
+    <!-- AMOLED screen) and aren't painted as a flat true-black rectangle -->
+    <!-- either. -->
+    <style name="PopupThemeAmoled" parent="android:Theme.Holo.Dialog">
+        <item name="android:alertDialogTheme">@style/AlertDialogThemeAmoled</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@drawable/dialog_card_amoled</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyleAmoled</item>
     </style>
 
     <!-- ANDROID TRANSPARENT THEME -->

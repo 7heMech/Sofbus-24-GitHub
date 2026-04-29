@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -158,7 +159,7 @@ public class RetrievePublicTransportDirection extends AsyncTask<Void, Void, Dire
                     String timestamp = ptDirectionsEntity
                             .getScheduleCacheTimestamp();
 
-                    Toast.makeText(
+                    ToastUtils.makeText(
                             context,
                             Html.fromHtml(context.getString(
                                     R.string.pt_schedule_cache_loaded,

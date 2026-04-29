@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -108,7 +109,7 @@ public class Sofbus24DatabaseErrorDialog extends DialogFragment {
             startActivity(Intent.createChooser(emailIntent,
                     getString(R.string.app_send_email_chooser)));
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(context,
+            ToastUtils.makeText(context,
                     getString(R.string.app_send_email_chooser_error),
                     Toast.LENGTH_LONG).show();
         }

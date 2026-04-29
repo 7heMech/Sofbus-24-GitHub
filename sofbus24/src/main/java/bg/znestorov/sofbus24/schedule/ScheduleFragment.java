@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import bg.znestorov.sofbus24.entity.TabTypeEnum;
 import bg.znestorov.sofbus24.main.R;
 import bg.znestorov.sofbus24.utils.LanguageChange;
+import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.activity.NonSwipeableViewPager;
 
 /**
@@ -195,16 +196,23 @@ public class ScheduleFragment extends Fragment {
      * @param textView the TextView that has to be deactivated
      */
     private void setTabInactive(TabTypeEnum tabType, TextView textView) {
+        boolean isAmoledTheme = ThemeChange.isAmoledTheme(getActivity());
         int backgroundResource;
         switch (tabType) {
             case LEFT:
-                backgroundResource = R.drawable.tab_left_unselected;
+                backgroundResource = isAmoledTheme
+                        ? R.drawable.tab_left_unselected_amoled
+                        : R.drawable.tab_left_unselected;
                 break;
             case MIDDLE:
-                backgroundResource = R.drawable.tab_middle_unselected;
+                backgroundResource = isAmoledTheme
+                        ? R.drawable.tab_middle_unselected_amoled
+                        : R.drawable.tab_middle_unselected;
                 break;
             default:
-                backgroundResource = R.drawable.tab_right_unselected;
+                backgroundResource = isAmoledTheme
+                        ? R.drawable.tab_right_unselected_amoled
+                        : R.drawable.tab_right_unselected;
                 break;
         }
 

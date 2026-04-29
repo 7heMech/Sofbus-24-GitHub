@@ -28,6 +28,7 @@ import bg.znestorov.sofbus24.main.R;
 import bg.znestorov.sofbus24.main.StationMap;
 import bg.znestorov.sofbus24.utils.Constants;
 import bg.znestorov.sofbus24.utils.LanguageChange;
+import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.TranslatorCyrillicToLatin;
 import bg.znestorov.sofbus24.utils.TranslatorLatinToCyrillic;
 import bg.znestorov.sofbus24.utils.Utils;
@@ -127,6 +128,7 @@ class MetroStationAdapter extends ArrayAdapter<StationEntity> {
                 station.getNumber());
 
         viewHolder.stationIcon.setImageResource(getMetroImage(station));
+        ThemeChange.applyAmoledIconDim(context, viewHolder.stationIcon);
         viewHolder.stationName.setText(stationName);
         viewHolder.stationNumber.setText(stationNumber);
 

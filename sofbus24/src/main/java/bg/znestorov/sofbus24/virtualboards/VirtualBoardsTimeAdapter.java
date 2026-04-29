@@ -22,6 +22,7 @@ import bg.znestorov.sofbus24.entity.VehicleEntity;
 import bg.znestorov.sofbus24.entity.VirtualBoardsStationEntity;
 import bg.znestorov.sofbus24.main.R;
 import bg.znestorov.sofbus24.utils.Constants;
+import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.Utils;
 import bg.znestorov.sofbus24.utils.activity.TextViewWithImages;
 
@@ -91,6 +92,7 @@ class VirtualBoardsTimeAdapter extends ArrayAdapter<VehicleEntity>
 
         viewHolder.vehicleImage
                 .setImageResource(getVehicleImage(stationVehicle));
+        ThemeChange.applyAmoledIconDim(context, viewHolder.vehicleImage);
         viewHolder.stationCaption.setText(getVehicleCaption(stationVehicle));
         viewHolder.stationDirection.setText(getDirection(stationVehicle));
         viewHolder.stationTime.setText(getRowTimeCaption(stationVehicle));

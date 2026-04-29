@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -522,7 +523,7 @@ public class FileChooserDialog extends DialogFragment implements FileReplaceDial
                     // Check if the size length is in range
                     if (newFile.length() > MAX_FILE_SIZE) {
                         String limit = String.valueOf(MAX_FILE_SIZE / (1024 * 1024));
-                        Toast.makeText(context, context.getString(R.string.file_explorer_large_file, limit), Toast.LENGTH_SHORT)
+                        ToastUtils.makeText(context, context.getString(R.string.file_explorer_large_file, limit), Toast.LENGTH_SHORT)
                                 .show();
                     } else {
                         String filename = newFile.getName();

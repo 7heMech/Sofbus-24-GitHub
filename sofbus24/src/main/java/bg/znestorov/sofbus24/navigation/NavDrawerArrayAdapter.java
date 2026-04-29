@@ -3,6 +3,8 @@ package bg.znestorov.sofbus24.navigation;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,11 +111,15 @@ public class NavDrawerArrayAdapter extends ArrayAdapter<String> {
 
             // Initialize each row of the NavigationDrawer
             try {
-                initSubTagsBackground(position, viewHolder);
-                viewHolder.navDrawerImg.setImageResource(navigationItemsImgs
-                        .get(position));
+                boolean isAmoledTheme = ThemeChange.isAmoledTheme(context);
+                initSubTagsBackground(position, viewHolder, isAmoledTheme);
+                viewHolder.navDrawerImg.setImageDrawable(loadDrawable(
+                        navigationItemsImgs.get(position), isAmoledTheme));
                 viewHolder.navDrawerText.setText(navigationItems.get(position));
-                initCheckedImage(position, viewHolder);
+                viewHolder.navDrawerText.setTextColor(isAmoledTheme
+                        ? Color.WHITE
+                        : Color.BLACK);
+                initCheckedImage(position, viewHolder, isAmoledTheme);
             } catch (Exception e) {
                 /**
                  * There is an error with the method initSubTagsBackground(...),
@@ -141,13 +150,14 @@ public class NavDrawerArrayAdapter extends ArrayAdapter<String> {
      * Initialize the Sub-tags of the Navigation Drawer (change the background
      * color and fix the padding)
      *
-     * @param position   the position of the navigation drawer
-     * @param viewHolder the view holder of the current row
+     * @param position       the position of the navigation drawer
+     * @param viewHolder     the view holder of the current row
+     * @param isAmoledTheme  whether the AMOLED theme is currently active
      */
-    private void initSubTagsBackground(int position, ViewHolder viewHolder) {
+    private void initSubTagsBackground(int position, ViewHolder viewHolder,
+                                       boolean isAmoledTheme) {
 
         boolean isLightTheme = ThemeChange.isLightTheme(context);
-        boolean isAmoledTheme = ThemeChange.isAmoledTheme(context);
 
         int subTagBackgroundColor;
         if (isLightTheme) {
@@ -189,10 +199,12 @@ public class NavDrawerArrayAdapter extends ArrayAdapter<String> {
     /**
      * Define the image that marks the chosen home screen
      *
-     * @param position   the current row position
-     * @param viewHolder the view holder of the current row
+     * @param position       the current row position
+     * @param viewHolder     the view holder of the current row
+     * @param isAmoledTheme  whether the AMOLED theme is currently active
      */
-    private void initCheckedImage(int position, ViewHolder viewHolder) {
+    private void initCheckedImage(int position, ViewHolder viewHolder,
+                                  boolean isAmoledTheme) {
         int userHomeScreenChoice = 0;
         boolean isUserHomeScreenChosen = NavDrawerHomeScreenPreferences
                 .isUserHomeScreenChosen(context);
@@ -206,27 +218,41 @@ public class NavDrawerArrayAdapter extends ArrayAdapter<String> {
 
         if (userHomeScreenChoice == position - 1) {
             viewHolder.navDrawerCheckedImg.setVisibility(View.VISIBLE);
-            viewHolder.navDrawerCheckedImg
-                    .setImageResource(R.drawable.ic_slide_menu_checked);
+            viewHolder.navDrawerCheckedImg.setImageDrawable(loadDrawable(
+                    R.drawable.ic_slide_menu_checked, isAmoledTheme));
         } else {
             switch (position) {
                 case 0:
                     viewHolder.navDrawerCheckedImg.setVisibility(View.VISIBLE);
-                    viewHolder.navDrawerCheckedImg
-                            .setImageResource(R.drawable.ic_slide_menu_arrow);
+                    viewHolder.navDrawerCheckedImg.setImageDrawable(loadDrawable(
+                            R.drawable.ic_slide_menu_arrow, isAmoledTheme));
                     break;
                 case 1:
                 case 2:
                 case 3:
                     viewHolder.navDrawerCheckedImg.setVisibility(View.VISIBLE);
-                    viewHolder.navDrawerCheckedImg
-                            .setImageResource(R.drawable.ic_slide_menu_unchecked);
+                    viewHolder.navDrawerCheckedImg.setImageDrawable(loadDrawable(
+                            R.drawable.ic_slide_menu_unchecked, isAmoledTheme));
                     break;
                 default:
                     viewHolder.navDrawerCheckedImg.setVisibility(View.GONE);
                     break;
             }
         }
+    }
+
+    /**
+     * Load a drawer icon, tinted white when the AMOLED theme is active so the
+     * dark-on-light bitmaps stay visible on a true-black background.
+     */
+    private Drawable loadDrawable(int drawableResId, boolean isAmoledTheme) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableResId);
+        if (drawable == null || !isAmoledTheme) {
+            return drawable;
+        }
+        Drawable wrapped = DrawableCompat.wrap(drawable.mutate());
+        DrawableCompat.setTint(wrapped, Color.WHITE);
+        return wrapped;
     }
 
     // Used for optimize performance of the ListView

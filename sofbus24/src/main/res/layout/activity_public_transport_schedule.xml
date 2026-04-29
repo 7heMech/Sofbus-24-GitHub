@@ -9,7 +9,7 @@
         android:id="@+id/pt_schedule_station_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EEEEEE">
+        android:background="?attr/scheduleStationBackground">
 
         <TextView
             android:id="@+id/pt_schedule_station_name"
@@ -38,7 +38,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D0D0D0"
+        android:background="?attr/scheduleTimeBackground"
         android:paddingLeft="15sp"
         android:paddingTop="5sp"
         android:paddingRight="20sp"

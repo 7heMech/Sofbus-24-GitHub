@@ -9,6 +9,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -76,17 +77,17 @@ public class GoogleMapsRoute extends AsyncTask<Void, Void, String> {
         // Check if inline directions navigation is available
         if (jsonResult != null && !"".equals(jsonResult) && !jsonResult.contains("REQUEST_DENIED")) {
             ((ClosestStationsMap) callerInstance).visualizeRoute(jsonResult);
-            Toast.makeText(context, distance, Toast.LENGTH_SHORT).show();
+            ToastUtils.makeText(context, distance, Toast.LENGTH_SHORT).show();
 
         } else {
             // Check if maps directions navigation is available (GoogleMaps or PetalMaps)
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(routeUrlMapsApp));
             if (intent.resolveActivity(context.getPackageManager()) != null) {
                 context.startActivity(intent);
-                Toast.makeText(context, distance, Toast.LENGTH_SHORT).show();
+                ToastUtils.makeText(context, distance, Toast.LENGTH_SHORT).show();
 
             } else {
-                Toast.makeText(context,
+                ToastUtils.makeText(context,
                         context.getString(R.string.cs_map_fetch_route_error),
                         Toast.LENGTH_LONG).show();
             }

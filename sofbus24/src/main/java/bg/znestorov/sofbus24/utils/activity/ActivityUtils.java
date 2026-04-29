@@ -41,6 +41,7 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.activity.result.ActivityResultCaller;
 import androidx.activity.result.ActivityResultLauncher;
@@ -88,6 +89,7 @@ import bg.znestorov.sofbus24.utils.HmsUtils;
 import bg.znestorov.sofbus24.utils.ImageContent;
 import bg.znestorov.sofbus24.utils.LanguageChange;
 import bg.znestorov.sofbus24.utils.MapUtils;
+import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.Utils;
 
 /**
@@ -235,7 +237,7 @@ public class ActivityUtils {
      * @param context current Activity context
      */
     public static void showNoCoordinatesToast(Activity context) {
-        Toast.makeText(context,
+        ToastUtils.makeText(context,
                 context.getString(R.string.app_coordinates_error),
                 Toast.LENGTH_LONG).show();
     }
@@ -246,7 +248,7 @@ public class ActivityUtils {
      * @param context current Activity context
      */
     public static void showNoInternetToast(Activity context) {
-        Toast.makeText(context, context.getString(R.string.app_internet_error),
+        ToastUtils.makeText(context, context.getString(R.string.app_internet_error),
                 Toast.LENGTH_LONG).show();
     }
 
@@ -257,7 +259,7 @@ public class ActivityUtils {
      * @param msg     message to be shown on the alert dialog
      */
     public static void showNoInfoAlertToast(Activity context, Spanned msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+        ToastUtils.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -266,7 +268,7 @@ public class ActivityUtils {
      * @param context current Activity context
      */
     public static void showNoInternetOrInfoToast(Activity context) {
-        Toast.makeText(context,
+        ToastUtils.makeText(context,
                 context.getString(R.string.app_internet_or_info_error),
                 Toast.LENGTH_LONG).show();
     }
@@ -346,21 +348,27 @@ public class ActivityUtils {
                                             StationEntity station,
                                             ImageView favouritesImageView) {
         favouritesImageView.setImageResource(
-                getFavouritesStationContent(IMAGE_SRC, favouritesDatasource, station));
+                getFavouritesStationContent(context, IMAGE_SRC, favouritesDatasource, station));
         favouritesImageView.setContentDescription(
-                context.getString(getFavouritesStationContent(IMAGE_CONTENT_DESCRIPTION, favouritesDatasource, station)));
+                context.getString(getFavouritesStationContent(context, IMAGE_CONTENT_DESCRIPTION, favouritesDatasource, station)));
     }
 
     /**
      * Get the favorites image content according to this if exists in the Favorites
-     * Database
+     * Database. The empty-star drawable is theme-aware: Light/Dark themes keep
+     * the original raster {@code ic_fav_empty} (white-filled outline), while
+     * AMOLED swaps in the outline-only vector {@code ic_fav_empty_amoled} so
+     * the empty star is clearly distinct from the solid yellow "favourited"
+     * star on a true-black background.
      *
-     * @param imageContent the desired image content to be set
+     * @param context              the current Activity context (used to detect AMOLED theme)
+     * @param imageContent         the desired image content to be set
      * @param favouritesDatasource the FavouritesDatasource
-     * @param station the station on the current row
+     * @param station              the station on the current row
      * @return the station image content id
      */
-    private static int getFavouritesStationContent(ImageContent imageContent,
+    private static int getFavouritesStationContent(Activity context,
+                                                   ImageContent imageContent,
                                                    FavouritesDataSource favouritesDatasource,
                                                    StationEntity station) {
         try {
@@ -368,7 +376,7 @@ public class ActivityUtils {
             switch (imageContent) {
                 case IMAGE_SRC:
                     return favouritesDatasource.getStation(station) == null
-                            ? R.drawable.ic_fav_empty
+                            ? getEmptyFavouriteDrawable(context)
                             : R.drawable.ic_fav_full;
                 case IMAGE_CONTENT_DESCRIPTION:
                     return favouritesDatasource.getStation(station) == null
@@ -381,6 +389,21 @@ public class ActivityUtils {
         } finally {
             favouritesDatasource.close();
         }
+    }
+
+    /**
+     * Pick the correct "empty favourite star" drawable for the current app
+     * theme. AMOLED uses the outline-only vector so the empty star stays
+     * clearly distinct from the solid yellow "favourited" star on a true-
+     * black background; Light/Dark keep the original raster icon.
+     *
+     * @param context the current Activity context
+     * @return the resource id of the empty favourite star drawable
+     */
+    private static int getEmptyFavouriteDrawable(Activity context) {
+        return ThemeChange.isAmoledTheme(context)
+                ? R.drawable.ic_fav_empty_amoled
+                : R.drawable.ic_fav_empty;
     }
 
     /**
@@ -414,7 +437,7 @@ public class ActivityUtils {
             removeFromFavourites(context, favouritesDatasource, station);
 
             if (favouritesImageView != null) {
-                favouritesImageView.setImageResource(R.drawable.ic_fav_empty);
+                favouritesImageView.setImageResource(getEmptyFavouriteDrawable(context));
                 favouritesImageView.setContentDescription(
                         context.getString(R.string.app_add_favourites));
             }
@@ -446,7 +469,7 @@ public class ActivityUtils {
 
         // Show a toast message to inform the user that the station is added to
         // the favorites section
-        Toast.makeText(
+        ToastUtils.makeText(
                 context,
                 Html.fromHtml(String.format(
                         context.getString(R.string.app_toast_add_favourites),
@@ -479,7 +502,7 @@ public class ActivityUtils {
 
         // Show a toast message to inform the user that the station is deleted
         // from the favorites section
-        Toast.makeText(
+        ToastUtils.makeText(
                 context,
                 Html.fromHtml(String.format(
                         context.getString(R.string.app_toast_remove_favourites),
@@ -963,7 +986,7 @@ public class ActivityUtils {
     private static void showLongToast(Activity context, Spanned message,
                                       long millisInFuture, long countDownInterval) {
 
-        final Toast registrationToast = Toast.makeText(context, message,
+        final Toast registrationToast = ToastUtils.makeText(context, message,
                 Toast.LENGTH_LONG);
         registrationToast.show();
 

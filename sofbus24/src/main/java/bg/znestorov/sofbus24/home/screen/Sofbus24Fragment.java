@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -305,6 +306,10 @@ public class Sofbus24Fragment extends Fragment implements
             mPagerSlidingTabs
                     .setTabBackground(R.color.app_dark_theme_tab_background);
         } else if (currentAppTheme == AppThemeEnum.AMOLED) {
+            // Override the tiled bitmap strip background with solid black so
+            // the AMOLED look applies to the whole tab bar, not just each tab.
+            mPagerSlidingTabs
+                    .setBackgroundResource(R.color.app_amoled_theme_background);
             mPagerSlidingTabs
                     .setTabBackground(R.color.app_amoled_theme_tab_background);
         }
@@ -537,7 +542,7 @@ public class Sofbus24Fragment extends Fragment implements
                 initTabs();
 
                 // Show a message that the home screen is changed
-                Toast.makeText(context, getString(R.string.edit_tabs_toast),
+                ToastUtils.makeText(context, getString(R.string.edit_tabs_toast),
                         Toast.LENGTH_SHORT).show();
 
                 // Reset to default

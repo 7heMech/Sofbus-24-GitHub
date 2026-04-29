@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -287,7 +288,7 @@ public class StationRouteMap extends FragmentActivity implements OnMapReadyCallb
                         streetViewIntent.setPackage("com.google.android.apps.maps");
                         startActivity(streetViewIntent);
                     } else {
-                        Toast.makeText(context,
+                        ToastUtils.makeText(context,
                                 getString(R.string.app_no_station_selected_error),
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -303,7 +304,7 @@ public class StationRouteMap extends FragmentActivity implements OnMapReadyCallb
                 }
 
                 stationMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                Toast.makeText(context,
+                ToastUtils.makeText(context,
                         Html.fromHtml(getString(R.string.cs_map_normal)),
                         Toast.LENGTH_SHORT).show();
                 return true;
@@ -314,7 +315,7 @@ public class StationRouteMap extends FragmentActivity implements OnMapReadyCallb
                 }
 
                 stationMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-                Toast.makeText(context,
+                ToastUtils.makeText(context,
                         Html.fromHtml(getString(R.string.cs_map_terrain)),
                         Toast.LENGTH_SHORT).show();
                 return true;
@@ -325,7 +326,7 @@ public class StationRouteMap extends FragmentActivity implements OnMapReadyCallb
                 }
 
                 stationMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-                Toast.makeText(context,
+                ToastUtils.makeText(context,
                         Html.fromHtml(getString(R.string.cs_map_satellite)),
                         Toast.LENGTH_SHORT).show();
                 return true;
@@ -336,7 +337,7 @@ public class StationRouteMap extends FragmentActivity implements OnMapReadyCallb
                 }
 
                 stationMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-                Toast.makeText(context,
+                ToastUtils.makeText(context,
                         Html.fromHtml(getString(R.string.cs_map_hybrid)),
                         Toast.LENGTH_SHORT).show();
                 return true;

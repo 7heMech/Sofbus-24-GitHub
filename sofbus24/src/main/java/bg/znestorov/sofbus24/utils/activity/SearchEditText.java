@@ -1,14 +1,19 @@
 package bg.znestorov.sofbus24.utils.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.EditText;
 
+import androidx.core.graphics.drawable.DrawableCompat;
+
+import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.activity.DrawableClickListener.DrawablePosition;
 
 /**
@@ -48,6 +53,12 @@ public class SearchEditText extends EditText {
     @Override
     public void setCompoundDrawables(Drawable left, Drawable top,
                                      Drawable right, Drawable bottom) {
+        if (isAmoledThemeActive()) {
+            left = tintWhite(left);
+            top = tintWhite(top);
+            right = tintWhite(right);
+            bottom = tintWhite(bottom);
+        }
         if (left != null) {
             drawableLeft = left;
         }
@@ -61,6 +72,23 @@ public class SearchEditText extends EditText {
             drawableBottom = bottom;
         }
         super.setCompoundDrawables(left, top, right, bottom);
+    }
+
+    private boolean isAmoledThemeActive() {
+        Context ctx = getContext();
+        if (ctx instanceof Activity) {
+            return ThemeChange.isAmoledTheme((Activity) ctx);
+        }
+        return false;
+    }
+
+    private static Drawable tintWhite(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
+        Drawable wrapped = DrawableCompat.wrap(drawable.mutate());
+        DrawableCompat.setTint(wrapped, Color.WHITE);
+        return wrapped;
     }
 
     @Override

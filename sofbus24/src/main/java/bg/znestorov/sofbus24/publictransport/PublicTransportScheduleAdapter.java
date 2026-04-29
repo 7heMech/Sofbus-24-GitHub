@@ -91,13 +91,16 @@ class PublicTransportScheduleAdapter extends ArrayAdapter<String> {
             }
 
             // Make the rows that the vehicle already passed inactive
-            if (Utils.isActiveSchedule(ptSchedule)) {
-                viewHolder.schedulePTHour.setTextColor(Color
-                        .parseColor("#000000"));
-            } else {
-                viewHolder.schedulePTHour.setTextColor(Color
-                        .parseColor("#8B8B8B"));
-            }
+            int activeTextColorResId = isLightTheme
+                    ? R.color.app_light_theme_schedule_text_active
+                    : (isAmoledTheme
+                            ? R.color.app_amoled_theme_schedule_text_active
+                            : R.color.app_dark_theme_schedule_text_active);
+            int textColorResId = Utils.isActiveSchedule(ptSchedule)
+                    ? activeTextColorResId
+                    : R.color.schedule_text_passed;
+            viewHolder.schedulePTHour.setTextColor(
+                    context.getResources().getColor(textColorResId));
         }
 
         rowView.setOnClickListener(null);

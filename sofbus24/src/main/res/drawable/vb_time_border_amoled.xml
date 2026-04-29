@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- AMOLED variant of the schedule-legend strip background. Slightly -->
+<!-- lighter than the true-black activity surface so the colored legend -->
+<!-- text labels (Low-floor, Air Conditioning, etc.) remain readable. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="#1A1A1A" />
+
+    <stroke
+        android:width="1sp"
+        android:color="#3A3A3A" />
+
+</shape>

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -130,7 +131,7 @@ public class RetrieveRouteChangesApi extends
         if (routeChangesList == null) {
             ActivityUtils.showNoInternetToast(context);
         } else if (routeChangesList.size() == 0) {
-            Toast.makeText(context,
+            ToastUtils.makeText(context,
                     context.getString(R.string.route_changes_list_empty_text),
                     Toast.LENGTH_LONG).show();
         } else {

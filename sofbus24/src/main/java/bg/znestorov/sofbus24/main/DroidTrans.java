@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -602,6 +603,17 @@ public class DroidTrans extends FragmentActivity {
     }
 
     /**
+     * Apply the appropriate text color to a wheel adapter based on the
+     * currently selected application theme. AMOLED uses white; the other
+     * themes keep the kankan default (very dark gray).
+     */
+    private void applyWheelTextColor(AbstractWheelTextAdapter adapter) {
+        if (ThemeChange.isAmoledTheme(this)) {
+            adapter.setTextColor(getResources().getColor(android.R.color.white));
+        }
+    }
+
+    /**
      * Update the vehicles wheel numbers
      */
     private void updateVehicleWheelNumbers() {
@@ -613,6 +625,7 @@ public class DroidTrans extends FragmentActivity {
         ArrayWheelAdapter<String> adapter = new ArrayWheelAdapter<String>(this,
                 vehicleNumbersArray);
         adapter.setTextSize(15);
+        applyWheelTextColor(adapter);
         vehicleNumbersWheel.setViewAdapter(adapter);
 
         switch (vehicleType) {
@@ -665,6 +678,7 @@ public class DroidTrans extends FragmentActivity {
         ArrayWheelAdapter<String> adapter = new ArrayWheelAdapter<String>(this,
                 vehicleDirectionsArray);
         adapter.setTextSize(12);
+        applyWheelTextColor(adapter);
         vehicleDirectionsWheel.setViewAdapter(adapter);
         vehicleDirectionsWheel.setCurrentItem(0);
     }
@@ -683,6 +697,7 @@ public class DroidTrans extends FragmentActivity {
         ArrayWheelAdapter<String> adapter = new ArrayWheelAdapter<String>(this,
                 vehicleStationsArray);
         adapter.setTextSize(13);
+        applyWheelTextColor(adapter);
         vehicleStationsWheel.setViewAdapter(adapter);
         vehicleStationsWheel.setCurrentItem(0);
     }
@@ -742,6 +757,12 @@ public class DroidTrans extends FragmentActivity {
                 vehicleSchedule
                         .setBackgroundResource(R.drawable.btn_droidtrans_light);
                 break;
+            case AMOLED:
+                vehicleSchedule
+                        .setBackgroundResource(R.drawable.btn_droidtrans_amoled);
+                vehicleSchedule.setTextColor(
+                        getResources().getColor(android.R.color.white));
+                break;
             default:
                 vehicleSchedule
                         .setBackgroundResource(R.drawable.btn_droidtrans_dark);
@@ -763,7 +784,7 @@ public class DroidTrans extends FragmentActivity {
                             context, null, station, null, HtmlRequestCodesEnum.SINGLE_RESULT);
                     retrieveVirtualBoards.getSumcInformation();
                 } catch (Exception e) {
-                    Toast.makeText(context,
+                    ToastUtils.makeText(context,
                             getString(R.string.droid_trans_no_info),
                             Toast.LENGTH_LONG).show();
                 }
@@ -992,6 +1013,7 @@ public class DroidTrans extends FragmentActivity {
             ImageView img = (ImageView) view
                     .findViewById(R.id.droidtrans_vehicle_type_img);
             img.setImageResource(vehicleImages.get(index));
+            ThemeChange.applyAmoledIconDim(DroidTrans.this, img);
 
             return view;
         }

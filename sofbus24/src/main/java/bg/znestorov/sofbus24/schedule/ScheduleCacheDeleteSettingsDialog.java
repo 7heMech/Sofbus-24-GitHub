@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -71,7 +72,7 @@ public class ScheduleCacheDeleteSettingsDialog extends DialogFragment {
 
                 Spanned deleteMessage = Html
                         .fromHtml(getString(R.string.pt_menu_clear_all_schedule_cache_toast));
-                Toast.makeText(context, deleteMessage, Toast.LENGTH_LONG)
+                ToastUtils.makeText(context, deleteMessage, Toast.LENGTH_LONG)
                         .show();
 
                 context.finish();

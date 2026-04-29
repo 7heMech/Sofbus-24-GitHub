@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -99,7 +100,7 @@ public class ScheduleCacheDeleteDialog extends DialogFragment {
                         break;
                 }
 
-                Toast.makeText(context, deleteMessage, Toast.LENGTH_LONG)
+                ToastUtils.makeText(context, deleteMessage, Toast.LENGTH_LONG)
                         .show();
             }
         };

@@ -11,6 +11,14 @@
     <color name="app_amoled_theme_background">#000000</color>
     <color name="app_amoled_theme_action_bar">#000000</color>
 
+    <!-- Schedule wrapper banner backgrounds (per theme) -->
+    <color name="schedule_station_bg_light">#EEEEEE</color>
+    <color name="schedule_station_bg_dark">#EEEEEE</color>
+    <color name="schedule_station_bg_amoled">#000000</color>
+    <color name="schedule_time_bg_light">#D0D0D0</color>
+    <color name="schedule_time_bg_dark">#D0D0D0</color>
+    <color name="schedule_time_bg_amoled">#0F0F0F</color>
+
     <!-- SCHEDULE -->
     <color name="app_light_theme_schedule_station">#EEEEEE</color>
     <color name="app_dark_theme_schedule_station">#DEDEDE</color>
@@ -22,6 +30,12 @@
     <color name="app_dark_theme_schedule_odd">#ECECEC</color>
     <color name="app_amoled_theme_schedule_odd">#0A0A0A</color>
 
+    <!-- Schedule row text colors (per theme) -->
+    <color name="app_light_theme_schedule_text_active">#000000</color>
+    <color name="app_dark_theme_schedule_text_active">#000000</color>
+    <color name="app_amoled_theme_schedule_text_active">#FFFFFF</color>
+    <color name="schedule_text_passed">#8B8B8B</color>
+
     <!-- Application colors (mostly used) -->
     <color name="white">#FFFFFF</color>
     <color name="inner_tab_grey">#8B8B8B</color>
@@ -32,5 +46,8 @@
     <color name="metro_line_2">#0000FF</color>
     <color name="metro_line_3">#339900</color>
     <color name="metro_line_4">#FFBF00</color>
+
+    <!-- Metro schedule special colors -->
+    <color name="metro_schedule_express">#FF0017</color>
 
 </resources>

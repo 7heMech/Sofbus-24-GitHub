@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
@@ -88,7 +89,7 @@ public class RouteChangesNews extends FragmentActivity {
                         .newPlainText(urlAddress, urlAddress);
                 clipboard.setPrimaryClip(clip);
 
-                Toast.makeText(context,
+                ToastUtils.makeText(context,
                         getString(R.string.route_changes_news_copy_link),
                         Toast.LENGTH_SHORT).show();
 

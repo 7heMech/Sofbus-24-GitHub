@@ -17,6 +17,7 @@ import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.ListFragment;
@@ -133,7 +134,7 @@ public class FavouritesStationFragment extends ListFragment implements
                     dialogFragment.setTargetFragment(this, 0);
                     dialogFragment.show(getFragmentManager(), "dialog");
                 } else {
-                    Toast.makeText(
+                    ToastUtils.makeText(
                             context,
                             Html.fromHtml(getString(R.string.fav_menu_remove_all_empty_toast)),
                             Toast.LENGTH_SHORT).show();
@@ -147,7 +148,7 @@ public class FavouritesStationFragment extends ListFragment implements
                     dialogFragment.setTargetFragment(this, 0);
                     dialogFragment.show(getFragmentManager(), "dialog");
                 } else {
-                    Toast.makeText(
+                    ToastUtils.makeText(
                             context,
                             Html.fromHtml(getString(R.string.fav_menu_remove_all_empty_toast)),
                             Toast.LENGTH_SHORT).show();
@@ -165,7 +166,7 @@ public class FavouritesStationFragment extends ListFragment implements
         getFavouritesStationAdapter().notifyDataSetChanged();
 
         FavouritesDatabaseUtils.deleteFavouriteDatabase(context);
-        Toast.makeText(context,
+        ToastUtils.makeText(context,
                 Html.fromHtml(getString(R.string.fav_menu_remove_all_toast)),
                 Toast.LENGTH_SHORT).show();
 
@@ -223,7 +224,7 @@ public class FavouritesStationFragment extends ListFragment implements
 
         getFavouritesStationAdapter().notifyDataSetChanged();
 
-        Toast.makeText(context,
+        ToastUtils.makeText(context,
                 Html.fromHtml(getString(R.string.fav_menu_sort_success)),
                 Toast.LENGTH_SHORT).show();
 
@@ -248,7 +249,7 @@ public class FavouritesStationFragment extends ListFragment implements
             favouritesStations.addAll(loadFavouritesList(null));
             getFavouritesStationAdapter().notifyDataSetChanged();
 
-            Toast.makeText(
+            ToastUtils.makeText(
                     context,
                     Html.fromHtml(String.format(context
                                     .getString(R.string.app_toast_remove_favourites),
@@ -299,7 +300,7 @@ public class FavouritesStationFragment extends ListFragment implements
             favouritesStations.addAll(loadFavouritesList(null));
             getFavouritesStationAdapter().notifyDataSetChanged();
 
-            Toast.makeText(
+            ToastUtils.makeText(
                     context,
                     Html.fromHtml(String.format(context
                                     .getString(R.string.app_toast_rename_favourites),

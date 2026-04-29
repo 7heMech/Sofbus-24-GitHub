@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Outline-only empty favourite star used on AMOLED. Light/Dark themes -->
+    <!-- continue to use the original raster ic_fav_empty.png; this vector is -->
+    <!-- only picked when the AMOLED theme is active so the empty star is -->
+    <!-- clearly distinct from the solid yellow "favourited" star on a true- -->
+    <!-- black background. -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FFB300"
+        android:strokeWidth="1.6"
+        android:strokeLineJoin="round"
+        android:pathData="M12,2.6 L14.79,8.65 L21.4,9.45 L16.5,14.05 L17.78,20.6 L12,17.32 L6.22,20.6 L7.5,14.05 L2.6,9.45 L9.21,8.65 Z" />
+</vector>

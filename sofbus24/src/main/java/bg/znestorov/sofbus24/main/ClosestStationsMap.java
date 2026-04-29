@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -602,7 +603,7 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
                 return true;
             case R.id.action_gm_map_clear:
                 ActivityUtils.recreateActivity(context, isCSMapHomeScreen);
-                Toast.makeText(context, getString(R.string.cs_map_clear_info),
+                ToastUtils.makeText(context, getString(R.string.cs_map_clear_info),
                         Toast.LENGTH_SHORT).show();
 
                 return true;
@@ -617,12 +618,12 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
                                 selectedMarkerLatLng);
                         googleMapsRoute.execute();
                     } else {
-                        Toast.makeText(context,
+                        ToastUtils.makeText(context,
                                 getString(R.string.cs_map_route_error),
                                 Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(context,
+                    ToastUtils.makeText(context,
                             getString(R.string.cs_map_location_error),
                             Toast.LENGTH_SHORT).show();
                 }
@@ -639,7 +640,7 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
                         streetViewIntent.setPackage("com.google.android.apps.maps");
                         startActivity(streetViewIntent);
                     } else {
-                        Toast.makeText(context,
+                        ToastUtils.makeText(context,
                                 getString(R.string.app_no_station_selected_error),
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -657,12 +658,12 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
 
                 if (csMap.isTrafficEnabled()) {
                     csMap.setTrafficEnabled(false);
-                    Toast.makeText(context,
+                    ToastUtils.makeText(context,
                             getString(R.string.cs_map_traffic_off_info),
                             Toast.LENGTH_SHORT).show();
                 } else {
                     csMap.setTrafficEnabled(true);
-                    Toast.makeText(context,
+                    ToastUtils.makeText(context,
                             getString(R.string.cs_map_traffic_on_info),
                             Toast.LENGTH_SHORT).show();
                 }
@@ -676,7 +677,7 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
                 }
 
                 csMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                Toast.makeText(context,
+                ToastUtils.makeText(context,
                         Html.fromHtml(getString(R.string.cs_map_normal)),
                         Toast.LENGTH_SHORT).show();
                 return true;
@@ -688,7 +689,7 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
                 }
 
                 csMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-                Toast.makeText(context,
+                ToastUtils.makeText(context,
                         Html.fromHtml(getString(R.string.cs_map_terrain)),
                         Toast.LENGTH_SHORT).show();
                 return true;
@@ -700,7 +701,7 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
                 }
 
                 csMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-                Toast.makeText(context,
+                ToastUtils.makeText(context,
                         Html.fromHtml(getString(R.string.cs_map_satellite)),
                         Toast.LENGTH_SHORT).show();
                 return true;
@@ -712,7 +713,7 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
                 }
 
                 csMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-                Toast.makeText(context,
+                ToastUtils.makeText(context,
                         Html.fromHtml(getString(R.string.cs_map_hybrid)),
                         Toast.LENGTH_SHORT).show();
                 return true;
@@ -990,7 +991,7 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
                 routePolylineList.add(polyline);
             }
         } catch (JSONException e) {
-            Toast.makeText(context,
+            ToastUtils.makeText(context,
                     getString(R.string.cs_map_fetch_route_error),
                     Toast.LENGTH_SHORT).show();
         }

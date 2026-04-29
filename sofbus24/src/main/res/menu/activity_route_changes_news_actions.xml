@@ -5,7 +5,7 @@
     <!-- More -->
     <item
         android:id="@+id/action_more"
-        android:icon="@drawable/ic_menu_more"
+        android:icon="@drawable/ic_menu_more_themed"
         android:showAsAction="always"
         android:title="@string/action_more"
         tools:ignore="AlwaysShowAction,AppCompatResource">

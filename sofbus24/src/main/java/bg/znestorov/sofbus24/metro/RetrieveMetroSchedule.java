@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import org.w3c.dom.Document;
 
@@ -154,7 +155,7 @@ public class RetrieveMetroSchedule extends AsyncTask<Void, Void, MetroScheduleEn
                     String timestamp = metroSchedule
                             .getScheduleCacheTimestamp();
 
-                    Toast.makeText(
+                    ToastUtils.makeText(
                             context,
                             Html.fromHtml(context.getString(
                                     R.string.pt_schedule_cache_loaded,

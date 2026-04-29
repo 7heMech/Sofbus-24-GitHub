@@ -1916,7 +1916,7 @@ public class Utils {
      */
     public static void navDrawerBlindToast(Activity context, int messageId) {
         // if (Utils.isBlindMode(context)) {
-        //     Toast.makeText(context, context.getString(messageId), Toast.LENGTH_SHORT).show();
+        //     ToastUtils.makeText(context, context.getString(messageId), Toast.LENGTH_SHORT).show();
         // }
     }
 

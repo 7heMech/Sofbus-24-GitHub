@@ -15,6 +15,7 @@ import java.util.List;
 
 import bg.znestorov.sofbus24.entity.VehicleTypeEnum;
 import bg.znestorov.sofbus24.main.R;
+import bg.znestorov.sofbus24.utils.ThemeChange;
 import bg.znestorov.sofbus24.utils.TranslatorCyrillicToLatin;
 import bg.znestorov.sofbus24.utils.Utils;
 
@@ -77,6 +78,7 @@ public class HistoryAdapter extends ArrayAdapter<HistoryEntity> implements
         searchNumber = TranslatorCyrillicToLatin.translate(context, searchNumber);
 
         viewHolder.searchImage.setImageResource(getHistoryImage(history));
+        ThemeChange.applyAmoledIconWhiteTint(context, viewHolder.searchImage);
         viewHolder.searchText.setText(Html.fromHtml(getHistoryTitle(
                 historyType, searchName, searchNumber)));
         viewHolder.searchType.setText(Html.fromHtml(getHistorySubtitle(

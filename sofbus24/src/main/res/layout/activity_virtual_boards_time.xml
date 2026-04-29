@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/vb_time_border"
+            android:background="?attr/scheduleLegendBackground"
             android:gravity="center"
             android:paddingTop="3sp"
             android:paddingBottom="3sp"

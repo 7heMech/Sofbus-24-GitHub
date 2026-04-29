@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -112,7 +113,7 @@ public class History extends ListActivity implements
                             .newInstance();
                     dialogFragment.show(getSupportFragmentManager(), "dialog");
                 } else {
-                    Toast.makeText(
+                    ToastUtils.makeText(
                             context,
                             Html.fromHtml(getString(R.string.history_menu_remove_all_empty_toast)),
                             Toast.LENGTH_SHORT).show();
@@ -245,7 +246,7 @@ public class History extends ListActivity implements
         historyList.clear();
         historyAdapter.notifyDataSetChanged();
 
-        Toast.makeText(
+        ToastUtils.makeText(
                 context,
                 Html.fromHtml(getString(R.string.history_menu_remove_all_toast)),
                 Toast.LENGTH_SHORT).show();

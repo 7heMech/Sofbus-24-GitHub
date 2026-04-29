@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Schedule wrapper banner backgrounds. Themed per app theme so the -->
+    <!-- header (station name) and sub-header (time / favourite star) -->
+    <!-- adapt to Light, Dark and AMOLED. -->
+    <attr name="scheduleStationBackground" format="color|reference" />
+    <attr name="scheduleTimeBackground" format="color|reference" />
+
+    <!-- Background drawable for the schedule legend strip at the bottom of -->
+    <!-- the metro / public-transport schedule screen. Light/Dark keep the -->
+    <!-- existing semi-transparent light-grey panel; AMOLED swaps in a dark -->
+    <!-- panel so the colored legend text remains readable. -->
+    <attr name="scheduleLegendBackground" format="reference" />
+
+</resources>

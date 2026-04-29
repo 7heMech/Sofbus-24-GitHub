@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.widget.Toast;
+import bg.znestorov.sofbus24.utils.ToastUtils;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpGet;
@@ -157,7 +158,7 @@ public class RetrievePublicTransportStation extends
                             .getStationTitle(ptStation);
                     String timestamp = ptStation.getScheduleCacheTimestamp();
 
-                    Toast.makeText(
+                    ToastUtils.makeText(
                             context,
                             Html.fromHtml(context.getString(
                                     R.string.pt_schedule_cache_loaded,
