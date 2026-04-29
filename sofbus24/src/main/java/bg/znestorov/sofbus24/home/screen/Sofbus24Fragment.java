@@ -300,9 +300,13 @@ public class Sofbus24Fragment extends Fragment implements
         // once
         mPagerSlidingTabs = (PagerSlidingTabStrip) fragmentView
                 .findViewById(R.id.sofbus24_tabs);
-        if (ThemeChange.getAppTheme(context) == AppThemeEnum.DARK) {
+        AppThemeEnum currentAppTheme = ThemeChange.getAppTheme(context);
+        if (currentAppTheme == AppThemeEnum.DARK) {
             mPagerSlidingTabs
                     .setTabBackground(R.color.app_dark_theme_tab_background);
+        } else if (currentAppTheme == AppThemeEnum.AMOLED) {
+            mPagerSlidingTabs
+                    .setTabBackground(R.color.app_amoled_theme_tab_background);
         }
 
         mViewPager = (ViewPager) fragmentView.findViewById(R.id.sofbus24_pager);

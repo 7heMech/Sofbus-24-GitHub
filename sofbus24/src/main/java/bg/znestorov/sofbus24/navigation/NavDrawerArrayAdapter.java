@@ -147,6 +147,16 @@ public class NavDrawerArrayAdapter extends ArrayAdapter<String> {
     private void initSubTagsBackground(int position, ViewHolder viewHolder) {
 
         boolean isLightTheme = ThemeChange.isLightTheme(context);
+        boolean isAmoledTheme = ThemeChange.isAmoledTheme(context);
+
+        int subTagBackgroundColor;
+        if (isLightTheme) {
+            subTagBackgroundColor = 0x30BBBBBB;
+        } else if (isAmoledTheme) {
+            subTagBackgroundColor = 0x26FFFFFF;
+        } else {
+            subTagBackgroundColor = 0x70BBBBBB;
+        }
 
         switch (position) {
             case 1:
@@ -158,7 +168,7 @@ public class NavDrawerArrayAdapter extends ArrayAdapter<String> {
             case 2:
             case 3:
                 viewHolder.navDrawerLayout
-                        .setBackgroundColor(isLightTheme ? 0x30BBBBBB : 0x70BBBBBB);
+                        .setBackgroundColor(subTagBackgroundColor);
                 viewHolder.navDrawerLayout.setPadding(
                         ActivityUtils.dpToPx(context, 25),
                         ActivityUtils.dpToPx(context, 8),

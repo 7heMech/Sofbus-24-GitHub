@@ -70,20 +70,24 @@ class PublicTransportScheduleAdapter extends ArrayAdapter<String> {
             rowView.setBackgroundColor(Color.parseColor("#80CEEA"));
         } else {
             boolean isLightTheme = ThemeChange.isLightTheme(context);
+            boolean isAmoledTheme = ThemeChange.isAmoledTheme(context);
+
+            int oddRowColorResId = isLightTheme
+                    ? R.color.app_light_theme_schedule_odd
+                    : (isAmoledTheme
+                            ? R.color.app_amoled_theme_schedule_odd
+                            : R.color.app_dark_theme_schedule_odd);
+            int evenRowColorResId = isLightTheme
+                    ? R.color.app_light_theme_schedule_even
+                    : (isAmoledTheme
+                            ? R.color.app_amoled_theme_schedule_even
+                            : R.color.app_dark_theme_schedule_even);
 
             // Set the background to each row (even or odd)
             if (position % 2 == 1) {
-                rowView.setBackgroundColor(isLightTheme ? context
-                        .getResources().getColor(
-                                R.color.app_light_theme_schedule_odd) : context
-                        .getResources().getColor(
-                                R.color.app_dark_theme_schedule_odd));
+                rowView.setBackgroundColor(context.getResources().getColor(oddRowColorResId));
             } else {
-                rowView.setBackgroundColor(isLightTheme ? context
-                        .getResources().getColor(
-                                R.color.app_light_theme_schedule_even)
-                        : context.getResources().getColor(
-                        R.color.app_dark_theme_schedule_even));
+                rowView.setBackgroundColor(context.getResources().getColor(evenRowColorResId));
             }
 
             // Make the rows that the vehicle already passed inactive

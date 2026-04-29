@@ -19,6 +19,16 @@ public class ThemeChange {
     }
 
     /**
+     * Check if the selected application theme is the AMOLED one
+     *
+     * @param context the Context of the current activity
+     * @return if the theme is AMOLED (true black)
+     */
+    public static boolean isAmoledTheme(Activity context) {
+        return getAppTheme(context) == AppThemeEnum.AMOLED;
+    }
+
+    /**
      * Check the type of the selected theme for the application
      *
      * @param context the Context of the current activity
@@ -32,6 +42,8 @@ public class ThemeChange {
 
         if (Constants.PREFERENCE_DEFAULT_VALUE_APP_THEME.equals(chosenTheme)) {
             return AppThemeEnum.LIGHT;
+        } else if (Constants.PREFERENCE_VALUE_APP_THEME_AMOLED.equals(chosenTheme)) {
+            return AppThemeEnum.AMOLED;
         } else {
             return AppThemeEnum.DARK;
         }
@@ -48,6 +60,9 @@ public class ThemeChange {
         switch (appTheme) {
             case LIGHT:
                 context.setTheme(R.style.AppThemeLight);
+                break;
+            case AMOLED:
+                context.setTheme(R.style.AppThemeAmoled);
                 break;
             default:
                 context.setTheme(R.style.AppThemeDark);

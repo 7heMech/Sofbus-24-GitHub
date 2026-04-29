@@ -420,6 +420,9 @@ public class MetroScheduleWrapperFragment extends Fragment {
         if (ThemeChange.isLightTheme(context)) {
             metroStationView
                     .setBackgroundResource(R.color.app_light_theme_schedule_station);
+        } else if (ThemeChange.isAmoledTheme(context)) {
+            metroStationView
+                    .setBackgroundResource(R.color.app_amoled_theme_schedule_station);
         } else {
             metroStationView
                     .setBackgroundResource(R.color.app_dark_theme_schedule_station);

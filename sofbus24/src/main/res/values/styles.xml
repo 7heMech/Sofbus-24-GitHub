@@ -29,6 +29,19 @@
         <item name="titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>
 
+    <!-- ANDROID AMOLED THEME -->
+    <style name="AppBaseThemeAmoled" parent="Theme.AppCompat.Light" />
+
+    <style name="AppThemeAmoled" parent="AppBaseThemeAmoled">
+        <item name="actionBarStyle">@style/MyTheme.ActionBarStyleAmoled</item>
+        <item name="android:windowBackground">@color/app_amoled_theme_background</item>
+    </style>
+
+    <style name="MyTheme.ActionBarStyleAmoled" parent="Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/app_amoled_theme_action_bar</item>
+        <item name="titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
+    </style>
+
     <!-- ANDROID DIALOG THEME -->
     <style name="PopupTheme" parent="@android:style/Theme.Dialog">
         <item name="android:windowIsFloating">false</item>

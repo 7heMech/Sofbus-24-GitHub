@@ -35,6 +35,19 @@
         <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>
 
+    <!-- ANDROID AMOLED THEME -->
+    <style name="AppBaseThemeAmoled" parent="android:Theme.Holo.Light" />
+
+    <style name="AppThemeAmoled" parent="AppBaseThemeAmoled">
+        <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyleAmoled</item>
+        <item name="android:windowBackground">@color/app_amoled_theme_background</item>
+    </style>
+
+    <style name="MyTheme.ActionBarStyleAmoled" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/app_amoled_theme_action_bar</item>
+        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
+    </style>
+
     <!-- ANDROID DIALOG THEME -->
     <style name="PopupTheme" parent="android:Theme.Holo.Light.Dialog">
         <item name="android:windowIsFloating">false</item>

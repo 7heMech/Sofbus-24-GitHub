@@ -6,13 +6,21 @@
     <color name="app_dark_theme_background">#CACACA</color>
     <color name="app_dark_theme_action_bar">#00000000</color>
 
+    <!-- AMOLED THEME colors -->
+    <color name="app_amoled_theme_tab_background">#26FFFFFF</color>
+    <color name="app_amoled_theme_background">#000000</color>
+    <color name="app_amoled_theme_action_bar">#000000</color>
+
     <!-- SCHEDULE -->
     <color name="app_light_theme_schedule_station">#EEEEEE</color>
     <color name="app_dark_theme_schedule_station">#DEDEDE</color>
+    <color name="app_amoled_theme_schedule_station">#101010</color>
     <color name="app_light_theme_schedule_even">#FFFFFF</color>
     <color name="app_dark_theme_schedule_even">#DEDEDE</color>
+    <color name="app_amoled_theme_schedule_even">#000000</color>
     <color name="app_light_theme_schedule_odd">#F1F1F1</color>
     <color name="app_dark_theme_schedule_odd">#ECECEC</color>
+    <color name="app_amoled_theme_schedule_odd">#0A0A0A</color>
 
     <!-- Application colors (mostly used) -->
     <color name="white">#FFFFFF</color>

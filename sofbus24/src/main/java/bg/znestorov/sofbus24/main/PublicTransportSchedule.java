@@ -433,6 +433,9 @@ public class PublicTransportSchedule extends FragmentActivity {
         if (ThemeChange.isLightTheme(context)) {
             ptStationView
                     .setBackgroundResource(R.color.app_light_theme_schedule_station);
+        } else if (ThemeChange.isAmoledTheme(context)) {
+            ptStationView
+                    .setBackgroundResource(R.color.app_amoled_theme_schedule_station);
         } else {
             ptStationView
                     .setBackgroundResource(R.color.app_dark_theme_schedule_station);

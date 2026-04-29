@@ -1202,10 +1202,12 @@ public class ClosestStationsMap extends FragmentActivity implements OnMapReadyCa
                 mDrawerLayout, mDrawerList, navigationItems)
                 .getDrawerItemClickListener());
 
-        // Check if the theme is DARK
+        // Check if the theme is DARK or AMOLED
         if (!ThemeChange.isLightTheme(context)) {
-            mDrawerList
-                    .setBackgroundResource(R.color.app_dark_theme_background);
+            mDrawerList.setBackgroundResource(
+                    ThemeChange.isAmoledTheme(context)
+                            ? R.color.app_amoled_theme_background
+                            : R.color.app_dark_theme_background);
         }
 
         // ActionBarDrawerToggle ties together the the proper interactions
